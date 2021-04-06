@@ -1,0 +1,90 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "orders".
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property string $date
+ *
+ * @property OrderDetails[] $orderDetails
+ * @property User $user
+ */
+class Orders extends \yii\db\ActiveRecord
+{
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'orders';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+            [['user_id', 'date'], 'required'],
+            [['user_id'], 'integer'],
+            [['date'], 'safe'],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'user_id' => 'User ID',
+            'date' => 'Дата',
+            'userSurname' => 'Фамилия',
+            'userName' => 'Имя',
+            'userPatronymic' => 'Отчество',
+        ];
+    }
+
+    /**
+     * Gets query for [[OrderDetails]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOrderDetails()
+    {
+        return $this->hasMany(OrderDetails::className(), ['orders_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    /* Геттеры для фио */
+    public function getUserSurname()
+    {
+        return $this->user->surname;
+    }
+
+    public function getUserName()
+    {
+        return $this->user->name;
+    }
+
+    public function getUserPatronymic()
+    {
+        return $this->user->patronymic;
+    }
+}
