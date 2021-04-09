@@ -12,6 +12,7 @@ use Yii;
  * @property string $date
  *
  * @property OrderDetails[] $orderDetails
+ * @property DrugsDrugsCharacteristicsLink $DrugsDrugsCharacteristicsLink
  * @property User $user
  */
 class Orders extends \yii\db\ActiveRecord
@@ -49,6 +50,7 @@ class Orders extends \yii\db\ActiveRecord
             'userSurname' => 'Фамилия',
             'userName' => 'Имя',
             'userPatronymic' => 'Отчество',
+            'count'=>'count'
         ];
     }
 
@@ -61,6 +63,19 @@ class Orders extends \yii\db\ActiveRecord
     {
         return $this->hasMany(OrderDetails::className(), ['orders_id' => 'id']);
     }
+
+    public function getDrugsDrugsCharacteristicsLink()
+    {
+        return $this->hasOne(DrugsDrugsCharacteristicsLink::className(), ['id' => 'drugs_drugs_characteristics_link_id'])
+            ->viaTable('order_details', ['orders_id' => 'id']);
+    }
+//    public function getDrugsCharacteristics()
+//    {
+//        return $this->hasOne(DrugsCharacteristics::className(), ['id' => 'drugs_characteristics_id'])
+//            ->viaTable('drugs_drugs_characteristics_link', ['id' => 'drugs_drugs_characteristics_link_id'])
+//            ->viaTable('order_details', ['orders_id' => 'id']);
+//    }
+
 
     /**
      * Gets query for [[User]].

@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Orders;
 use app\models\OrdersDetailsSearch;
 use app\models\OrdersSearch;
 use Yii;
@@ -25,16 +26,16 @@ class AdminController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['users'],
                 'rules' => [
                     [
-                        'actions' => ['users'],
+                        'actions' => ['users','update','orders','order','create','view','delete','delete-order'],
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
                             return User::isUserAdmin(Yii::$app->user->identity->email);
                         }
                     ],
+
 
                 ],
             ],
@@ -128,7 +129,12 @@ class AdminController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        try {
+            $this->findModel($id)->delete();
+            Yii::$app->session->setFlash('success', Yii::t('app', 'Пользователь удален'));
+        } catch (\Exception $e) {
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Невозможно удалить пользователя, т.к. у него есть заказы'));
+        }
 
         return $this->redirect(['admin/users']);
     }
@@ -148,10 +154,19 @@ class AdminController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+    protected function findModelOrder($id)
+    {
+        if (($model = Orders::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
 
 
     public function actionOrders()
     {
+
         $searchModel = new OrdersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -159,6 +174,19 @@ class AdminController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionDeleteOrder()
+    {
+        $id = Yii::$app->request->get('id');
+        try {
+            $this->findModelOrder($id)->delete();
+            Yii::$app->session->setFlash('success', Yii::t('app', 'ЗАказ удален'));
+        } catch (\Exception $e) {
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Невозможно удалить заказ'.$e));
+        }
+
+        return $this->redirect(['admin/orders']);
     }
 
     public function actionOrder()

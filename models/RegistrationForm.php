@@ -72,6 +72,7 @@ class RegistrationForm extends Model
                 $newUser->surname = $this->surname;
                 $newUser->name = $this->name;
                 $newUser->patronymic = $this->patronymic;
+                $newUser->role = 0;
                 $newUser->save();
             }
         }

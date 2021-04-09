@@ -10,6 +10,7 @@ use app\widgets\Alert;
 
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
+
 use yii\helpers\Html;
 
 use yii\widgets\Breadcrumbs;
@@ -48,7 +49,6 @@ AppAsset::register($this);
         'items' => array_merge([
             ['options' => ['class' => 'nav-item mx-auto pr-3 '], 'label' => 'Каталог', 'url' => ['drugs/catalog']],
             ['options' => ['class' => 'nav-item mx-auto pr-3 '], 'label' => 'Корзина', 'url' => ['cart/cartview']],
-            ['options' => ['class' => 'nav-item mx-auto pr-3'], 'label' => 'About', 'url' => ['/site/about']],
         ], Yii::$app->user->isGuest ? [
             ['label' => 'Вход', 'url' => ['/site/login']]
         ] : array_merge(
@@ -85,11 +85,11 @@ AppAsset::register($this);
     </div>
 </div>
 
-<footer class="footer">
+<footer class="footer ">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="">&copy; My Company <?= date('Y') ?>. <?= Yii::powered() ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
+
     </div>
 </footer>
 

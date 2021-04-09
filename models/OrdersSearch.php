@@ -48,13 +48,18 @@ class OrdersSearch extends Orders
     {
         $query = Orders::find();
         $query->joinWith(['user']);
+        //$query->joinWith(['orderDetails']);
+        $query->joinWith(['drugsDrugsCharacteristicsLink']);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+            'query' => $query
         ]);
 
         $dataProvider->setSort([
+            'defaultOrder'=>[
+                'date'=>SORT_DESC
+            ],
             'attributes' => [
                 'userSurname' => [
                     'asc' => ['users.surname' => SORT_ASC],
@@ -90,9 +95,9 @@ class OrdersSearch extends Orders
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'date' => $this->date,
-
-
+        ]);
+        $query->andFilterWhere([
+            'date' => $this->date ? \Yii::$app->formatter->asDate($this->date, 'yyyy-MM-dd') : null,
         ]);
         $query->joinWith(['user' => function ($q) {
             $q->where('users.surname LIKE "%' . $this->userSurname . '%"');

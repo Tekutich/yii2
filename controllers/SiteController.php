@@ -2,7 +2,6 @@
 
 namespace app\controllers;
 
-use app\models\EntryForm;
 use app\models\RegistrationForm;
 use Yii;
 use yii\filters\AccessControl;
@@ -73,6 +72,7 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        $this->layout = '@app/views/layouts/signin';
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -90,6 +90,7 @@ class SiteController extends Controller
 
     public function actionRegistration()
     {
+        $this->layout = '@app/views/layouts/signin';
         $model = new RegistrationForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();

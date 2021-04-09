@@ -46,15 +46,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Отчество',
             ],
             'email:email',
+
             [
-                'attribute' => 'password',
-                'format' => 'text',
-                'label' => 'Пароль',
-            ],
-            [
-                'attribute' => 'role',
-                'format' => 'text',
+                'value' => function ($model) {
+                    if ($model->role===0){
+                        return "Пользователь";
+                    }else{
+                        return "Администратор";
+                    }
+                },
+
                 'label' => 'Роль',
+                'attribute' => 'role',
             ],
 
         ],

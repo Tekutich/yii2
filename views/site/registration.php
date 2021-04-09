@@ -11,26 +11,41 @@ $this->title = 'Регистрация';
 
 ?>
 <div class="registration">
-    <h1><?= Html::encode($this->title) ?></h1>
-    <p>Введите данные для регистрации:</p>
+
+
+
+
     <?php $form = ActiveForm::begin([
         'id' => 'login-form',
-        'layout' => 'horizontal',
+        'options' => [
+            'class' => 'form-signin',
+        ],
+
         'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\"><div class=\"is-invalid\"></div>{error}</div>",
-            'labelOptions' => ['class' => 'col-lg-1 control-label'],
+
+            // 'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\"><div class=\"is-invalid\"></div>{error}</div>",
+            //  'labelOptions' => ['class' => 'col-lg-1 control-label'],
         ],
     ]); ?>
-    <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-    <?= $form->field($model, 'password')->passwordInput() ?>
-
-    <?= $form->field($model, 'surname')->textInput() ?>
-    <?= $form->field($model, 'name')->textInput() ?>
-    <?= $form->field($model, 'patronymic')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-primary']) ?>
+    <div class="text-center mb-4">
+        <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
+        <p>Введите данные для регистрации:</p>
     </div>
+
+    <?= $form->field($model, 'username',['template' => '{input}{label}{error}{hint}','options' => ['class' => 'form-label-group'],])->textInput(['autofocus' => true,'class'=>'form-control','placeholder'=>"Email",'id'=>"inputEmail"]) ?>
+    <?= $form->field($model, 'password',['template' => '{input}{label}{error}{hint}','options' => ['class' => 'form-label-group'],])->passwordInput(['class'=>'form-control','placeholder'=>"Пароль"]) ?>
+    <?= $form->field($model, 'surname',['template' => '{input}{label}{error}{hint}','options' => ['class' => 'form-label-group'],])->passwordInput(['class'=>'form-control','placeholder'=>"Фамилия"]) ?>
+    <?= $form->field($model, 'name',['template' => '{input}{label}{error}{hint}','options' => ['class' => 'form-label-group'],])->passwordInput(['class'=>'form-control','placeholder'=>"Имя"]) ?>
+    <?= $form->field($model, 'patronymic',['template' => '{input}{label}{error}{hint}','options' => ['class' => 'form-label-group'],])->passwordInput(['class'=>'form-control','placeholder'=>"Отчество"]) ?>
+
+
+
+
+
+    <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-primary btn-registration']) ?>
+
     <?php ActiveForm::end(); ?>
 
+
 </div><!-- registation -->
+

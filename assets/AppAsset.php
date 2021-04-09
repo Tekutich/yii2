@@ -20,16 +20,16 @@ class AppAsset extends AssetBundle
     public $sourcePath = '@app/style';
     public $baseUrl = '@web';
     public $css = [
-        'lib/bootstrap/css/bootstrap.min.css',
+       'lib/bootstrap/css/bootstrap.min.css',
         'css/style.css',
     ];
     public $js = [
-        'lib/bootstrap/js/bootstrap.min.js',
+       'lib/bootstrap/js/bootstrap.min.js',
     ];
 
     public $depends = [
         'yii\web\YiiAsset',
-        //'yii\bootstrap4\BootstrapAsset',
+        //'yii\bootstrap\BootstrapAsset',
 
     ];
     public $publishOptions = [

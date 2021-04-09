@@ -42,7 +42,7 @@ class CartController extends \yii\web\Controller
                     $orderDetails->save();
                 }
 
-                $response = "Заказ сформирован";
+                $response = "Ваш заказ оформлен. Спасибо!";
                 $transaction->commit();
             } catch (\Exception $e) {
                 $response = "Ошибка создания заказа";

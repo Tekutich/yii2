@@ -17,12 +17,21 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'name')->textInput()->label('Имя') ?>
     <?= $form->field($model, 'patronymic')->textInput()->label('Отчество') ?>
     <?= $form->field($model, 'email')->textInput() ?>
-    <? if ($Create===1){?>
-        <?= $form->field($model, 'password')->textInput()->label('Пароль')?>
-    <? }else{?>
-        <?= $form->field($model, 'new_password')->textInput()->label('Новый пароль')?>
-    <? }?>
-    <?= $form->field($model, 'role')->textInput()->label('Роль') ?>
+    <? if ($Create === 1) { ?>
+        <?= $form->field($model, 'password')->textInput()->label('Пароль') ?>
+    <? } else { ?>
+        <?= $form->field($model, 'new_password')->textInput()->label('Новый пароль') ?>
+    <? } ?>
+    <?= $form->field($model, 'role')->dropDownList(
+        [
+            '0' => 'Пользователь',
+            '1' => 'Администратор'
+        ],
+        [
+            'disabled' => yii::$app->user->id === $model->id ? true : false,
+        ]);
+    ?>
+
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

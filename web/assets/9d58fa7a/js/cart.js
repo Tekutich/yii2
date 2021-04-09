@@ -25,7 +25,7 @@ $(function () {
 
     if (products === null) {
 
-        let noProducts = $('<h2 class="no-product-text">Ваша корзина пока пуста</h2>');
+        let noProducts = $('<h2 class="no-product-text text-center">Ваша корзина пока пуста</h2>');
         $('#container-products-cart').append(noProducts);
 
     } else {
@@ -181,7 +181,7 @@ $(function () {
 
                 $('#container-products-cart').empty();
                 localStorage.removeItem('productCart');
-                let noProducts = $('<h2 class="no-product-text">Ваша корзина пока пуста</h2>');
+                let noProducts = $('<h2 class="no-product-text text-center">Ваша корзина пока пуста</h2>');
                 $('#container-products-cart').append(noProducts);
             },
             error: function () {
