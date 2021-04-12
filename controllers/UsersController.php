@@ -16,7 +16,7 @@ use yii\filters\VerbFilter;
 /**
  * AdminController implements the CRUD actions for User model.
  */
-class AdminController extends Controller
+class UsersController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -28,7 +28,7 @@ class AdminController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['users','update','orders','order','create','view','delete','delete-order'],
+                        'actions' => ['index','update','orders','order','create','view','delete','delete-order'],
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
@@ -52,12 +52,12 @@ class AdminController extends Controller
      * Lists all User models.
      * @return mixed
      */
-    public function actionUsers()
+    public function actionIndex()
     {
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('users/users', [
+        return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -71,7 +71,7 @@ class AdminController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('users/view', [
+        return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
@@ -88,10 +88,10 @@ class AdminController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->password = Yii::$app->getSecurity()->generatePasswordHash($model->password);
             $model->save();
-            return $this->redirect(['admin/view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        return $this->render('users/create', [
+        return $this->render('create', [
             'model' => $model,
         ]);
     }
@@ -112,10 +112,10 @@ class AdminController extends Controller
                 $model->password = Yii::$app->getSecurity()->generatePasswordHash($model->new_password);
             }
             $model->save();
-            return $this->redirect(['admin/view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        return $this->render('users/update', [
+        return $this->render('update', [
             'model' => $model,
         ]);
     }
@@ -136,7 +136,7 @@ class AdminController extends Controller
             Yii::$app->session->setFlash('error', Yii::t('app', 'Невозможно удалить пользователя, т.к. у него есть заказы'));
         }
 
-        return $this->redirect(['admin/users']);
+        return $this->redirect(['index']);
     }
 
     /**
@@ -154,52 +154,52 @@ class AdminController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-    protected function findModelOrder($id)
-    {
-        if (($model = Orders::findOne($id)) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-
-    public function actionOrders()
-    {
-
-        $searchModel = new OrdersSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('orders/index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    public function actionDeleteOrder()
-    {
-        $id = Yii::$app->request->get('id');
-        try {
-            $this->findModelOrder($id)->delete();
-            Yii::$app->session->setFlash('success', Yii::t('app', 'ЗАказ удален'));
-        } catch (\Exception $e) {
-            Yii::$app->session->setFlash('error', Yii::t('app', 'Невозможно удалить заказ'.$e));
-        }
-
-        return $this->redirect(['admin/orders']);
-    }
-
-    public function actionOrder()
-    {
-        $orderId = Yii::$app->request->get('id');
-        $searchModel = new OrdersDetailsSearch();
-        $searchModel->orderId = $orderId;
-
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('orders/order/index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
+//    protected function findModelOrder($id)
+//    {
+//        if (($model = Orders::findOne($id)) !== null) {
+//            return $model;
+//        }
+//
+//        throw new NotFoundHttpException('The requested page does not exist.');
+//    }
+//
+//
+//    public function actionOrders()
+//    {
+//
+//        $searchModel = new OrdersSearch();
+//        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+//
+//        return $this->render('orders/index', [
+//            'searchModel' => $searchModel,
+//            'dataProvider' => $dataProvider,
+//        ]);
+//    }
+//
+//    public function actionDeleteOrder()
+//    {
+//        $id = Yii::$app->request->get('id');
+//        try {
+//            $this->findModelOrder($id)->delete();
+//            Yii::$app->session->setFlash('success', Yii::t('app', 'ЗАказ удален'));
+//        } catch (\Exception $e) {
+//            Yii::$app->session->setFlash('error', Yii::t('app', 'Невозможно удалить заказ'.$e));
+//        }
+//
+//        return $this->redirect(['admin/orders']);
+//    }
+//
+//    public function actionOrder()
+//    {
+//        $orderId = Yii::$app->request->get('id');
+//        $searchModel = new OrdersDetailsSearch();
+//        $searchModel->orderId = $orderId;
+//
+//        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+//
+//        return $this->render('orders/order/index', [
+//            'searchModel' => $searchModel,
+//            'dataProvider' => $dataProvider,
+//        ]);
+//    }
 }

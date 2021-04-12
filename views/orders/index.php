@@ -1,10 +1,7 @@
 <?php
 
-use app\models\DrugsCharacteristics;
-use app\models\DrugsDrugsCharacteristicsLink;
 use kartik\date\DatePicker;
 use yii\grid\GridView;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use kartik\icons\Icon;
 
@@ -37,9 +34,24 @@ Icon::map($this);
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'id',
-            'userSurname',
-            'userName',
-            'userPatronymic',
+            [
+                    'attribute'=>'userSur',
+                    'format'=>'text',
+                    'label'=>'Фамилия',
+                    'value'=>'user.surname',
+            ],
+            [
+                    'attribute'=>'userName',
+                    'format'=>'text',
+                    'label'=>'Имя',
+                    'value'=>'user.name',
+            ],
+            [
+                'attribute'=>'userPatronymic',
+                'format'=>'text',
+                'label'=>'Отчество',
+                'value'=>'user.patronymic',
+            ],
             //дата
             [
                 'attribute' => 'date',
@@ -55,35 +67,34 @@ Icon::map($this);
                  ]
              ])
            ],
-            //имя
-
-                [
-                    'attribute' => 'cost',
+            //товары
+            [
+                    'attribute' => 'products',
+                    'headerOptions' => ['class' => 'text-center'],
+                    'contentOptions' => ['class' => 'text-center'],
                     'format' => 'html',
-                    'label' => 'Сумма',
+                    'label' => 'Товары',
                     'value' => function ($model) {
-                        $phones = '';
-
-                       echo "<pre>";
-                      $kek=$model;
-                       print_r($kek);
-                       //print_r($model->drugsDrugsCharacteristicsLink);
-                        echo "</pre>";
-                        foreach ($model->orderDetails as $value) {
-                           $drugLink = DrugsDrugsCharacteristicsLink::findAll($value['drugs_drugs_characteristics_link_id']);
-                            foreach ($drugLink as $value1)  {
-                                $drug = \app\models\DrugsCharacteristics::findOne($value1['drugs_characteristics_id']);
-                                echo "<pre>";
-                           // print_r($drug);
-                               $cost+=$drug->cost;
-                              echo "</pre>";
-                          }
-                        }
-
-                       // $kek222+=$model->drugsDrugsCharacteristicsLink->drugsCharacteristics->cost;
-                      return $cost;
+                        $name = '';
+                      foreach ($model->orderDetails as $key=>$value){
+                          $name.=$model->orderDetails[$key]->drugs->trade_name.", ";
+                      }
+                        return substr($name, 0,-2);
                     },
-                    ],
+            ],
+            //сумма
+            [
+                'attribute' => 'cost',
+                'contentOptions' => ['class' => 'text-center'],
+                'format' => 'html',
+                'label' => 'Сумма',
+                'value' => function ($model) {
+                    foreach ($model->orderDetails as $key=>$value){
+                        $cost+=$model->orderDetails[$key]->drugsCharacteristics->cost;
+                    }
+                    return $cost;
+                },
+            ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => 'Действия',
@@ -93,7 +104,7 @@ Icon::map($this);
 
                 'buttons' => [
                     'view' => function ($url, $model) {
-                        return Html::a(Icon::show('eye'), ["/admin/order", 'id' => $model->id], [
+                        return Html::a(Icon::show('eye'), ["order", 'id' => $model->id], [
                             'title' => 'View',
                             'class' => 'btn btn-primary'
                         ]);
@@ -104,7 +115,7 @@ Icon::map($this);
                             'class'=>'btn btn-danger',
                             'data' => [
                                 'method' => 'post',
-                                'confirm' => 'Удалить данную строку?',
+                                'confirm' => 'Вы действительно хотите удалить данный заказ?',
                             ]
                         ]);
                     },

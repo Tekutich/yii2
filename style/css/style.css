@@ -183,11 +183,11 @@ body {
     font-style: italic;
 }
 
-.breadcrumb{
+.breadcrumb {
     margin-top: 20px;
 }
 
-.page-link.active{
+.page-link.active {
     background: #e9ecef;
 }
 
@@ -196,12 +196,8 @@ body {
     background: #e9ecef;
 }
 
-.page-link.disabled span{
+.page-link.disabled span {
     background: #e9ecef;
-}
-
-td .btn{
-    margin-top: 10px;
 }
 
 .body-login {
@@ -331,10 +327,10 @@ td .btn{
     }
 }
 
-.btn-enter{
+.btn-enter {
     max-width: 100%;
 }
 
-.btn-registration{
+.btn-registration {
     width: 100%;
 }

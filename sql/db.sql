@@ -129,12 +129,12 @@ CREATE TABLE `order_details` (
   KEY `orders_id` (`orders_id`),
   CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`drugs_drugs_characteristics_link_id`) REFERENCES `drugs_drugs_characteristics_link` (`id`) ON DELETE CASCADE,
   CONSTRAINT `order_details_ibfk_3` FOREIGN KEY (`orders_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `order_details` WRITE;
 /*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
-INSERT INTO `order_details` VALUES (1,1,2,2),(2,1,4,1),(3,2,2,1),(4,3,7,1),(5,4,6,1),(6,5,8,1),(7,6,8,1),(8,7,7,1),(9,8,2,2),(10,9,4,2),(11,10,9,2),(13,20,2,1),(14,21,2,1),(15,23,2,4),(16,24,2,4),(17,24,1,1),(18,25,2,4),(19,25,1,1),(20,26,1,1),(21,26,2,1),(22,27,2,1),(23,28,2,1),(24,29,2,1),(25,30,2,1),(26,31,2,1),(27,32,2,1),(28,33,2,1),(29,34,2,1),(30,35,2,1),(31,36,2,1),(32,37,2,1),(33,38,2,1),(34,39,2,1),(35,40,2,1),(36,41,2,1),(37,42,2,1),(38,43,2,1),(39,44,2,1),(40,45,1,1),(41,45,2,1),(43,45,3,1),(44,45,5,1);
+INSERT INTO `order_details` VALUES (1,1,2,2),(2,1,4,1),(3,2,2,1),(4,3,7,1),(5,4,6,1),(6,5,8,1),(7,6,8,1),(8,7,7,1),(9,8,2,2),(10,9,4,2),(11,10,9,2),(13,20,2,1),(14,21,2,1),(15,23,2,4),(16,24,2,4),(17,24,1,1),(18,25,2,4),(19,25,1,1),(20,26,1,1),(21,26,2,1),(22,27,2,1),(23,28,2,1),(24,29,2,1),(25,30,2,1),(26,31,2,1),(27,32,2,1),(28,33,2,1),(29,34,2,1),(30,35,2,1),(32,37,2,1),(33,38,2,1),(34,39,2,1),(35,40,2,1),(36,41,2,1),(37,42,2,1),(38,43,2,1),(39,44,2,1),(40,45,1,1),(43,45,3,2),(44,45,5,2),(45,47,10,1);
 /*!40000 ALTER TABLE `order_details` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `orders`;
@@ -147,12 +147,12 @@ CREATE TABLE `orders` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COMMENT='заказы';
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 COMMENT='заказы';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,2,'2021-03-18'),(2,3,'2021-03-19'),(3,4,'2021-03-18'),(4,5,'2021-03-19'),(5,10,'2021-03-19'),(6,8,'2021-03-16'),(7,7,'2021-03-15'),(8,8,'2021-03-16'),(9,9,'2021-03-17'),(10,7,'2021-03-18'),(13,1,'2021-03-31'),(14,1,'2021-03-31'),(15,1,'2021-03-31'),(16,1,'2021-03-31'),(17,1,'2021-03-31'),(18,1,'2021-03-31'),(19,1,'2021-03-31'),(20,1,'2021-03-31'),(21,1,'2021-03-31'),(22,1,'2021-04-01'),(23,1,'2021-04-01'),(24,1,'2021-04-01'),(25,1,'2021-04-01'),(26,1,'2021-04-01'),(27,1,'2021-04-01'),(28,1,'2021-04-01'),(29,1,'2021-04-01'),(30,2,'2021-04-02'),(31,1,'2021-04-02'),(32,1,'2021-04-02'),(33,1,'2021-04-02'),(34,1,'2021-04-02'),(35,1,'2021-04-02'),(36,1,'2021-04-02'),(37,1,'2021-04-02'),(38,1,'2021-04-02'),(39,1,'2021-04-02'),(40,1,'2021-04-02'),(41,1,'2021-04-02'),(42,1,'2021-04-02'),(43,1,'2021-04-02'),(44,1,'2021-04-02'),(45,1,'2021-04-05');
+INSERT INTO `orders` VALUES (1,2,'2021-03-18'),(2,3,'2021-03-19'),(3,4,'2021-03-18'),(4,5,'2021-03-19'),(5,10,'2021-03-19'),(6,8,'2021-03-16'),(7,7,'2021-03-15'),(8,8,'2021-03-16'),(9,9,'2021-03-17'),(10,7,'2021-03-18'),(13,1,'2021-03-31'),(14,1,'2021-03-31'),(15,1,'2021-03-31'),(16,1,'2021-03-31'),(17,1,'2021-03-31'),(18,1,'2021-03-31'),(19,1,'2021-03-31'),(20,1,'2021-03-31'),(21,1,'2021-03-31'),(22,1,'2021-04-01'),(23,1,'2021-04-01'),(24,1,'2021-04-01'),(25,1,'2021-04-01'),(26,1,'2021-04-01'),(27,1,'2021-04-01'),(28,1,'2021-04-01'),(29,1,'2021-04-01'),(30,2,'2021-04-02'),(31,1,'2021-04-02'),(32,1,'2021-04-02'),(33,1,'2021-04-02'),(34,1,'2021-04-02'),(35,1,'2021-04-02'),(37,1,'2021-04-02'),(38,1,'2021-04-02'),(39,1,'2021-04-02'),(40,1,'2021-04-02'),(41,1,'2021-04-02'),(42,1,'2021-04-02'),(43,1,'2021-04-02'),(44,1,'2021-04-02'),(45,1,'2021-04-05'),(47,1,'2021-04-12');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `pharmacies`;
@@ -190,7 +190,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Текутьев','Андрей','Андреевич','andrey@mail.ru','$2y$13$W8vDKS/5mScd395hTm5qvuf2EhpbkvS7ibojh1BFjx5pCIKEm2UVC',1,'gq4MlDMrKO_h_VZIjy0ERcMZVP1KE-Np'),(2,'Иванов','Иван','Иванович','ivan@mail.ru','$2y$13$W8vDKS/5mScd395hTm5qvuf2EhpbkvS7ibojh1BFjx5pCIKEm2UVC',0,'G9vgH8c4xTriIQCfxHFJpVEOiSvN0GWy'),(3,'Иванов2','Иван','Иванович','ivan2@mail.ru','$2y$13$W8vDKS/5mScd395hTm5qvuf2EhpbkvS7ibojh1BFjx5pCIKEm2UVC',0,NULL),(4,'Иванов3','Иван','Иванович','ivan3@mail.ru','$2y$13$W8vDKS/5mScd395hTm5qvuf2EhpbkvS7ibojh1BFjx5pCIKEm2UVC',0,NULL),(5,'Иванов4','Иван','Иванович','ivan4@mail.ru','d297e83e2e5f779905b98aad87a8e59d539272fc',0,NULL),(6,'Иванов5','Иван','Иванович','ivan5@mail.ru','d297e83e2e5f779905b98aad87a8e59d539272fc',0,NULL),(7,'Иванов6','Иван','Иванович','ivan6@mail.ru','d297e83e2e5f779905b98aad87a8e59d539272fc',0,NULL),(8,'Иванов7','Иван','Иванович','ivan7@mail.ru','d297e83e2e5f779905b98aad87a8e59d539272fc',0,NULL),(9,'Иванов8','Иван','Иванович','ivan8@mail.ru','d297e83e2e5f779905b98aad87a8e59d539272fc',0,NULL),(10,'Иванов9','Иван9','Иванович9','ivan99@mail.ru','$2y$13$r3hlLd0zujXny8PNa8xkxeOYDMgxGx7U2w5R8cxS3moznznqCUMZO',0,'C7OLGF05o92KNtVT1G97V1be7s3MsYIu'),(19,'Иванов999','Иван999','Иванович999','ivan999@mail.ru','$2y$13$XlwOefYd.vLFG0XJz/T9yO4RfUNx64bVafJ3Jp2hn1xKhfaWsTOuK',0,'Mwg86U1_L8ttIDJGxE3zoCoZG64lc10V'),(20,'Иванов123','Иван123','Иванович123','ivan123@mail.ru','$2y$13$y2J7Lv6pRtVabWUNC2gPuOFgrUEDVzBn65kuD6GqONXoEPLsjl8Zm',0,'UhaEv-LbzP_ujYH3JJbfR2osGY0L4_Gg'),(21,'иван','иван','иван','ivan666@mail.ru','$2y$13$4JiUCpiHD9Q1BFrBCmtaaOT5NggiMVA1WYUiksidbNVppkSKp.UkO',0,NULL),(22,'322','322','322','ivan322@mail.ru','$2y$13$xgEJmvAf4QtlZoeoLb50y.9lijsAP6NKK8tNKSChtpVyoT5V4OyI.',0,NULL);
+INSERT INTO `users` VALUES (1,'Текутьев','Андрей','Андреевич','andrey@mail.ru','$2y$13$W8vDKS/5mScd395hTm5qvuf2EhpbkvS7ibojh1BFjx5pCIKEm2UVC',1,'B70ignjwNfSaP8yRWvQxvDrioeEZXkEn'),(2,'Иванов','Иван','Иванович','ivan@mail.ru','$2y$13$W8vDKS/5mScd395hTm5qvuf2EhpbkvS7ibojh1BFjx5pCIKEm2UVC',0,'WRyMYkKOLPhw14Cq27js9ak4xF0eafBr'),(3,'Иванов2','Иван','Иванович','ivan2@mail.ru','$2y$13$W8vDKS/5mScd395hTm5qvuf2EhpbkvS7ibojh1BFjx5pCIKEm2UVC',0,NULL),(4,'Иванов3','Иван','Иванович','ivan3@mail.ru','$2y$13$W8vDKS/5mScd395hTm5qvuf2EhpbkvS7ibojh1BFjx5pCIKEm2UVC',0,NULL),(5,'Иванов4','Иван','Иванович','ivan4@mail.ru','d297e83e2e5f779905b98aad87a8e59d539272fc',0,NULL),(6,'Иванов5','Иван','Иванович','ivan5@mail.ru','d297e83e2e5f779905b98aad87a8e59d539272fc',0,NULL),(7,'Иванов6','Иван','Иванович','ivan6@mail.ru','d297e83e2e5f779905b98aad87a8e59d539272fc',0,NULL),(8,'Иванов7','Иван','Иванович','ivan71@mail.ru','d297e83e2e5f779905b98aad87a8e59d539272fc',0,NULL),(9,'Иванов8','Иван','Иванович','ivan8@mail.ru','d297e83e2e5f779905b98aad87a8e59d539272fc',0,NULL),(10,'Иванов9','Иван9','Иванович9','ivan99@mail.ru','$2y$13$r3hlLd0zujXny8PNa8xkxeOYDMgxGx7U2w5R8cxS3moznznqCUMZO',0,'C7OLGF05o92KNtVT1G97V1be7s3MsYIu'),(19,'Иванов999','Иван999','Иванович999','ivan999@mail.ru','$2y$13$XlwOefYd.vLFG0XJz/T9yO4RfUNx64bVafJ3Jp2hn1xKhfaWsTOuK',0,'Mwg86U1_L8ttIDJGxE3zoCoZG64lc10V'),(20,'Иванов123','Иван123','Иванович123','ivan123@mail.ru','$2y$13$y2J7Lv6pRtVabWUNC2gPuOFgrUEDVzBn65kuD6GqONXoEPLsjl8Zm',0,'UhaEv-LbzP_ujYH3JJbfR2osGY0L4_Gg');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

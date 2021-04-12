@@ -8,20 +8,20 @@ use yii\data\ActiveDataProvider;
 
 class DrugsController extends \yii\web\Controller
 {
-    public function actionCatalog()
+    public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
             'query' => Drugs::find()->orderBy('trade_name '),
 
         ]);
 
-        $this->view->title = 'Drugs List';
+        $this->view->title = 'Каталог';
 
-        return $this->render('catalog', ['catalogdataProvider' => $dataProvider]);
+        return $this->render('index', ['catalogdataProvider' => $dataProvider]);
 
     }
 
-    public function actionProduct()
+    public function actionView()
     {
         $productId = Yii::$app->request->get('id');
 
@@ -39,7 +39,7 @@ class DrugsController extends \yii\web\Controller
 
         $this->view->title = $drugInfo['trade_name'];
 
-        return $this->render('product', ['drugInfo' => $drugInfo]);
+        return $this->render('view', ['drugInfo' => $drugInfo]);
 
     }
 

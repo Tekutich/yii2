@@ -11,6 +11,7 @@ use app\models\OrderDetails;
  */
 class OrdersDetailsSearch extends OrderDetails
 {
+    public $tradeName;
     public $orderId;
     public $form;
     public $dosage;
@@ -23,7 +24,7 @@ class OrdersDetailsSearch extends OrderDetails
     {
         return [
             [['id', 'orders_id', 'drugs_drugs_characteristics_link_id', 'count'], 'integer'],
-            [['form', 'dosage', 'cost'], 'safe'],
+            [['tradeName','form', 'dosage', 'cost'], 'safe'],
         ];
     }
 
@@ -48,6 +49,7 @@ class OrdersDetailsSearch extends OrderDetails
         $query = OrderDetails::find()
             ->where(['orders_id' => $this->orderId]);
         $query->joinWith(['drugsCharacteristics']);
+        $query->joinWith(['drugs']);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -75,6 +77,10 @@ class OrdersDetailsSearch extends OrderDetails
                     'desc' => ['count' => SORT_DESC],
                     'label' => 'Количество'
                 ],
+                'tradeName' => [
+                    'asc' => ['drugs.trade_name' => SORT_ASC],
+                    'desc' => ['drugs.trade_name' => SORT_DESC],
+                ],
 
             ]
         ]);
@@ -101,6 +107,9 @@ class OrdersDetailsSearch extends OrderDetails
         }]);
         $query->joinWith(['drugsCharacteristics' => function ($q) {
             $q->where('drugs_characteristics.cost LIKE "%' . $this->cost . '%"');
+        }]);
+        $query->joinWith(['drugs' => function ($q) {
+            $q->where('drugs.trade_name LIKE "%' . $this->tradeName . '%"');
         }]);
 
         return $dataProvider;

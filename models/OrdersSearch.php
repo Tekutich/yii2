@@ -11,7 +11,7 @@ use app\models\Orders;
  */
 class OrdersSearch extends Orders
 {
-    public $userSurname;
+    public $userSur;
     public $userName;
     public $userPatronymic;
 
@@ -22,7 +22,7 @@ class OrdersSearch extends Orders
     {
         return [
             [['id',], 'integer'],
-            [['date', 'user_id', 'userSurname', 'userName', 'userPatronymic'], 'safe'],
+            [['date', 'user_id', 'userSur', 'userName', 'userPatronymic'], 'safe'],
 //            [['date',], 'format' => ['date', 'd.mm.y']],
 
         ];
@@ -48,8 +48,10 @@ class OrdersSearch extends Orders
     {
         $query = Orders::find();
         $query->joinWith(['user']);
-        //$query->joinWith(['orderDetails']);
-        $query->joinWith(['drugsDrugsCharacteristicsLink']);
+        //$query->joinWith(['orderDetails']);$query->joinWith(['drugsDrugsCharacteristicsLink']);
+        $query->joinWith(['orderDetails']);
+        $query->joinWith(['orderDetails.drugsCharacteristics']);
+        $query->joinWith(['orderDetails.drugs']);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -61,7 +63,7 @@ class OrdersSearch extends Orders
                 'date'=>SORT_DESC
             ],
             'attributes' => [
-                'userSurname' => [
+                'userSur' => [
                     'asc' => ['users.surname' => SORT_ASC],
                     'desc' => ['users.surname' => SORT_DESC],
                     'label' => 'Фамилия'
@@ -100,7 +102,7 @@ class OrdersSearch extends Orders
             'date' => $this->date ? \Yii::$app->formatter->asDate($this->date, 'yyyy-MM-dd') : null,
         ]);
         $query->joinWith(['user' => function ($q) {
-            $q->where('users.surname LIKE "%' . $this->userSurname . '%"');
+            $q->where('users.surname LIKE "%' . $this->userSur . '%"');
         }]);
         $query->joinWith(['user' => function ($q) {
             $q->where('users.name LIKE "%' . $this->userName . '%"');

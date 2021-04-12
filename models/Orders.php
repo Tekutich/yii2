@@ -47,9 +47,6 @@ class Orders extends \yii\db\ActiveRecord
             'id' => 'ID',
             'user_id' => 'User ID',
             'date' => 'Дата',
-            'userSurname' => 'Фамилия',
-            'userName' => 'Имя',
-            'userPatronymic' => 'Отчество',
             'count'=>'count'
         ];
     }
@@ -69,12 +66,12 @@ class Orders extends \yii\db\ActiveRecord
         return $this->hasOne(DrugsDrugsCharacteristicsLink::className(), ['id' => 'drugs_drugs_characteristics_link_id'])
             ->viaTable('order_details', ['orders_id' => 'id']);
     }
-//    public function getDrugsCharacteristics()
-//    {
-//        return $this->hasOne(DrugsCharacteristics::className(), ['id' => 'drugs_characteristics_id'])
-//            ->viaTable('drugs_drugs_characteristics_link', ['id' => 'drugs_drugs_characteristics_link_id'])
-//            ->viaTable('order_details', ['orders_id' => 'id']);
-//    }
+    public function getDrugsCharacteristics()
+    {
+        return $this->hasOne(DrugsCharacteristics::className(), ['id' => 'drugs_characteristics_id'])
+            ->viaTable('drugs_drugs_characteristics_link', ['id' => 'drugs_drugs_characteristics_link_id'])
+            ->viaTable('order_details', ['orders_id' => 'id']);
+    }
 
 
     /**
@@ -87,19 +84,19 @@ class Orders extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
-    /* Геттеры для фио */
-    public function getUserSurname()
-    {
-        return $this->user->surname;
-    }
-
-    public function getUserName()
-    {
-        return $this->user->name;
-    }
-
-    public function getUserPatronymic()
-    {
-        return $this->user->patronymic;
-    }
+//    /* Геттеры для фио */
+//    public function getUserSurname()
+//    {
+//        return $this->user->surname;
+//    }
+//
+//    public function getUserName()
+//    {
+//        return $this->user->name;
+//    }
+//
+//    public function getUserPatronymic()
+//    {
+//        return $this->user->patronymic;
+//    }
 }

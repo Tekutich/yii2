@@ -172,7 +172,7 @@ $(function () {
     $('body').on('click', '#button-buy', function () {
         let local = JSON.parse(localStorage.getItem('productCart'));
         $.ajax({
-            url: "index.php?r=cart/addorder",
+            url: "cart/order",
             type: "POST",
 
             data: {productCart: local},

@@ -36,25 +36,24 @@ AppAsset::register($this);
     <?php
     NavBar::begin([
         'brandLabel' => 'Аптечка',
-        'brandUrl' => '?r=drugs/catalog',
+        'brandUrl' => '/drugs/index',
         'options' => [
             'class' => 'navbar-dark bg-dark navbar-expand-lg ',
         ],
 
     ]);
-
     echo Nav::widget([
 
         'options' => ['class' => 'navbar-nav ml-auto'],
         'items' => array_merge([
-            ['options' => ['class' => 'nav-item mx-auto pr-3 '], 'label' => 'Каталог', 'url' => ['drugs/catalog']],
-            ['options' => ['class' => 'nav-item mx-auto pr-3 '], 'label' => 'Корзина', 'url' => ['cart/cartview']],
+            ['options' => ['class' => 'nav-item mx-auto pr-3 '], 'label' => 'Каталог', 'url' => ['/drugs/index']],
+            ['options' => ['class' => 'nav-item mx-auto pr-3 '], 'label' => 'Корзина', 'url' => ['/cart/index']],
         ], Yii::$app->user->isGuest ? [
             ['label' => 'Вход', 'url' => ['/site/login']]
         ] : array_merge(
             User::isUserAdmin(Yii::$app->user->identity->email) ?
-                [['label' => 'Пользователи', 'url' => ['/admin/users']], ['label' => 'Заказы', 'url' => ['/admin/orders']]] :
-                [],
+                [['label' => 'Пользователи', 'url' => ['/users/index']], ['label' => 'Заказы', 'url' => ['/orders/index']]] :
+                [['label' => 'Заказы', 'url' => ['/orders/index']]],
             [
                 '<li >'
                 . Html::beginForm(['/site/logout'], 'post')
@@ -70,14 +69,12 @@ AppAsset::register($this);
     ]);
     NavBar::end();
     ?>
-
     <div class="container">
-
         <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'links' => isset($this->params[ 'breadcrumbs' ]) ? $this->params[ 'breadcrumbs' ] : [],
             'homeLink' => [
                 'label' => 'Главная',
-                'url' => 'index.php'
+                'url' => '/drugs/index'
             ]
         ]) ?>
         <?= Alert::widget() ?>

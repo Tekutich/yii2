@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'name')->textInput()->label('Имя') ?>
     <?= $form->field($model, 'patronymic')->textInput()->label('Отчество') ?>
     <?= $form->field($model, 'email')->textInput() ?>
-    <? if ($Create === 1) { ?>
+    <? if ($model->isNewRecord) { ?>
         <?= $form->field($model, 'password')->textInput()->label('Пароль') ?>
     <? } else { ?>
         <?= $form->field($model, 'new_password')->textInput()->label('Новый пароль') ?>

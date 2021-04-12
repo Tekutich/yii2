@@ -50,7 +50,9 @@ class OrderDetails extends \yii\db\ActiveRecord
             'drugs_drugs_characteristics_link_id' => 'Drugs Drugs Characteristics Link ID',
             'count' => 'Количество',
             'form' => 'Форма выпуска',
+            'dosage' => 'Дозировка',
             'cost' => 'Цена',
+            'tradeName'=>'Препарат',
         ];
     }
 
@@ -78,20 +80,34 @@ class OrderDetails extends \yii\db\ActiveRecord
     {
         return $this->hasOne(DrugsCharacteristics::className(), ['id' => 'drugs_characteristics_id'])->viaTable('drugs_drugs_characteristics_link', ['id' => 'drugs_drugs_characteristics_link_id']);
     }
-
-    /* Геттеры для формы выпуска */
-    public function getForm()
+    public function getDrugs()
     {
-        return $this->drugsCharacteristics->form_of_issue;
+        return $this->hasOne(Drugs::className(), ['id' => 'drugs_id'])->viaTable('drugs_drugs_characteristics_link', ['id' => 'drugs_drugs_characteristics_link_id']);
     }
 
-    public function getDosage()
+    public static function pageTotal($provider, $fieldName)
     {
-        return $this->drugsCharacteristics->dosage;
+        $total=0;
+        foreach($provider as $item){
+            $total+=$item[$fieldName];
+        }
+        return $total;
+    }
+    public static function getTotalSum($provider)
+    {
+        $total = 0;
+        foreach ($provider as $item) {
+           $total += $item->count*$item->drugsCharacteristics->cost;
+        }
+        return $total;
+    }
+    public static function getTotalCount($provider)
+    {
+        $total = 0;
+        foreach ($provider as $item) {
+            $total += $item->count;
+        }
+        return $total;
     }
 
-    public function getCost()
-    {
-        return $this->drugsCharacteristics->cost;
-    }
 }

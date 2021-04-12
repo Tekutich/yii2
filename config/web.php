@@ -16,8 +16,21 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'language' => 'ru-RU',
-    'defaultRoute' => 'drugs/catalog',
+    'defaultRoute' => 'drugs/index',
     'components' => [
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'enableStrictParsing' => false,
+            'rules' => [
+                'admin/<controller:(users||orders)>/<id:\d+>'=>'<controller>/view',
+                'admin/<controller:(users||orders)>/<action:\w+>'=>'<controller>/<action>',
+                'admin/<controller:(users||orders)>/<action:\w+>/<id:\d+>'=> '<controller>/<action>',
+                '<controller:\w+>/<id:\d+>'=>'<controller>/view',
+                '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
+                '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+            ],
+        ],
         'assetManager' => [
             'bundles' => [
                 'yii\bootstrap4\BootstrapPluginAsset' => [

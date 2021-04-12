@@ -11,7 +11,6 @@ use Yii;
  * @property int $drugs_characteristics_id
  * @property int $id
  *
- * @property BalanceOfGoods[] $balanceOfGoods
  * @property Drugs $drugs
  * @property DrugsCharacteristics $drugsCharacteristics
  * @property OrderDetails[] $orderDetails
@@ -49,16 +48,6 @@ class DrugsDrugsCharacteristicsLink extends \yii\db\ActiveRecord
             'drugs_characteristics_id' => 'Drugs Characteristics ID',
             'id' => 'ID',
         ];
-    }
-
-    /**
-     * Gets query for [[BalanceOfGoods]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getBalanceOfGoods()
-    {
-        return $this->hasMany(BalanceOfGoods::className(), ['drugs_drugs_characteristics_link_id' => 'drugs_id']);
     }
 
     /**

@@ -11,12 +11,13 @@ use yii\debug\models\search\Debug;
 
 class CartController extends \yii\web\Controller
 {
-    public function actionCartview()
+    public function actionIndex()
     {
-        return $this->render('cartview');
+        $this->view->title = 'Корзина';
+        return $this->render('index');
     }
 
-    public function actionAddorder()
+    public function actionOrder()
     {
         $productCart = Yii::$app->getRequest()->post('productCart');
 
@@ -28,7 +29,6 @@ class CartController extends \yii\web\Controller
             $db = Yii::$app->db;
             $transaction = $db->beginTransaction();
             try {
-
                 $order = new Orders();
                 $order->user_id = Yii::$app->user->id;
                 $order->date = $date;
@@ -55,7 +55,6 @@ class CartController extends \yii\web\Controller
 
             return ($response);
         }
-        return $this->render('cartview');
+        return $this->render('index');
     }
-
 }

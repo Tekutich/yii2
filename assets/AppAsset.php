@@ -35,4 +35,7 @@ class AppAsset extends AssetBundle
     public $publishOptions = [
         'forceCopy' => true
     ];
+    public $jsOptions = [
+        'position' => \yii\web\View::POS_HEAD
+    ];
 }
