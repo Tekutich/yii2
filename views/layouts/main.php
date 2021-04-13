@@ -53,7 +53,7 @@ AppAsset::register($this);
         ] : array_merge(
             User::isUserAdmin(Yii::$app->user->identity->email) ?
                 [['label' => 'Пользователи', 'url' => ['/users/index']], ['label' => 'Заказы', 'url' => ['/orders/index']]] :
-                [['label' => 'Заказы', 'url' => ['/orders/index']]],
+                [['label' => 'Заказы', 'url' => ['/user-orders/index']]],
             [
                 '<li >'
                 . Html::beginForm(['/site/logout'], 'post')
@@ -71,7 +71,7 @@ AppAsset::register($this);
     ?>
     <div class="container">
         <?= Breadcrumbs::widget([
-            'links' => isset($this->params[ 'breadcrumbs' ]) ? $this->params[ 'breadcrumbs' ] : [],
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             'homeLink' => [
                 'label' => 'Главная',
                 'url' => '/drugs/index'

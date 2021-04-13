@@ -2,21 +2,28 @@
 
 namespace app\controllers;
 
-use app\models\OrderDetails;
 use app\models\Orders;
-
 use DateTime;
 use Yii;
-use yii\debug\models\search\Debug;
 
+/**
+ * Контроллер корзины
+ */
 class CartController extends \yii\web\Controller
 {
+
+    /**
+     * Просмотр корзины
+     */
     public function actionIndex()
     {
         $this->view->title = 'Корзина';
         return $this->render('index');
     }
 
+    /**
+     * Сохранение заказа
+     */
     public function actionOrder()
     {
         $productCart = Yii::$app->getRequest()->post('productCart');
@@ -32,17 +39,14 @@ class CartController extends \yii\web\Controller
                 $order = new Orders();
                 $order->user_id = Yii::$app->user->id;
                 $order->date = $date;
+                $order->productCart=$productCart;
                 $order->save();
-
-                foreach ($productCart as $value) {
-                    $orderDetails = new OrderDetails();
-                    $orderDetails->drugs_drugs_characteristics_link_id = $value['id'];
-                    $orderDetails->orders_id = $order->id;
-                    $orderDetails->count = $value['quantity'];
-                    $orderDetails->save();
+                if (!$order->save()){
+                    $response = "Ошибка создания заказа";
+                }else{
+                    $response = "Ваш заказ оформлен. Спасибо!";
                 }
 
-                $response = "Ваш заказ оформлен. Спасибо!";
                 $transaction->commit();
             } catch (\Exception $e) {
                 $response = "Ошибка создания заказа";

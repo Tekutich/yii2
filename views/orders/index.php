@@ -10,14 +10,11 @@ use kartik\icons\Icon;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Заказы';
-$this->params[ 'breadcrumbs' ][] = $this->title;
+$this->params['breadcrumbs'][] = $this->title;
 Icon::map($this);
 ?>
 <div class="orders-index">
-
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -35,52 +32,52 @@ Icon::map($this);
             ['class' => 'yii\grid\SerialColumn'],
             'id',
             [
-                    'attribute'=>'userSur',
-                    'format'=>'text',
-                    'label'=>'Фамилия',
-                    'value'=>'user.surname',
+                'attribute' => 'userSur',
+                'format' => 'text',
+                'label' => 'Фамилия',
+                'value' => 'user.surname',
             ],
             [
-                    'attribute'=>'userName',
-                    'format'=>'text',
-                    'label'=>'Имя',
-                    'value'=>'user.name',
+                'attribute' => 'userName',
+                'format' => 'text',
+                'label' => 'Имя',
+                'value' => 'user.name',
             ],
             [
-                'attribute'=>'userPatronymic',
-                'format'=>'text',
-                'label'=>'Отчество',
-                'value'=>'user.patronymic',
+                'attribute' => 'userPatronymic',
+                'format' => 'text',
+                'label' => 'Отчество',
+                'value' => 'user.patronymic',
             ],
             //дата
             [
                 'attribute' => 'date',
                 'format' => ['date', 'php:d.m.Y'],
                 'label' => 'Дата',
-                 'filter' => DatePicker::widget([
-                 'model' => $searchModel,
-                     'attribute' => 'date',
+                'filter' => DatePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'date',
 
-                 'pluginOptions' => [
-                     'format' => 'dd.mm.yyyy',
-                     'autoclose' => true,
-                 ]
-             ])
-           ],
+                    'pluginOptions' => [
+                        'format' => 'dd.mm.yyyy',
+                        'autoclose' => true,
+                    ]
+                ])
+            ],
             //товары
             [
-                    'attribute' => 'products',
-                    'headerOptions' => ['class' => 'text-center'],
-                    'contentOptions' => ['class' => 'text-center'],
-                    'format' => 'html',
-                    'label' => 'Товары',
-                    'value' => function ($model) {
-                        $name = '';
-                      foreach ($model->orderDetails as $key=>$value){
-                          $name.=$model->orderDetails[$key]->drugs->trade_name.", ";
-                      }
-                        return substr($name, 0,-2);
-                    },
+                'attribute' => 'products',
+                'headerOptions' => ['class' => 'text-center'],
+                'contentOptions' => ['class' => 'text-center'],
+                'format' => 'html',
+                'label' => 'Товары',
+                'value' => function ($model) {
+                    $name = '';
+                    foreach ($model->orderDetails as $key => $value) {
+                        $name .= $model->orderDetails[$key]->drugs->trade_name . ", ";
+                    }
+                    return substr($name, 0, -2);
+                },
             ],
             //сумма
             [
@@ -89,8 +86,8 @@ Icon::map($this);
                 'format' => 'html',
                 'label' => 'Сумма',
                 'value' => function ($model) {
-                    foreach ($model->orderDetails as $key=>$value){
-                        $cost+=$model->orderDetails[$key]->drugsCharacteristics->cost;
+                    foreach ($model->orderDetails as $key => $value) {
+                        $cost += $model->orderDetails[$key]->drugsCharacteristics->cost * $model->orderDetails[$key]->count;
                     }
                     return $cost;
                 },
@@ -112,7 +109,7 @@ Icon::map($this);
                     'delete' => function ($url, $model) {
                         return Html::a(Icon::show('trash'), ["/admin/delete-order", 'id' => $model->id], [
                             'title' => 'Delete',
-                            'class'=>'btn btn-danger',
+                            'class' => 'btn btn-danger',
                             'data' => [
                                 'method' => 'post',
                                 'confirm' => 'Вы действительно хотите удалить данный заказ?',
@@ -124,6 +121,4 @@ Icon::map($this);
             ],
         ],
     ]); ?>
-
-
 </div>

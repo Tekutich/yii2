@@ -3,20 +3,24 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\VarDumper;
 
 /**
- * This is the model class for table "orders".
+ * Класс модели таблицы "orders".
  *
  * @property int $id
  * @property int $user_id
  * @property string $date
  *
- * @property OrderDetails[] $orderDetails
- * @property DrugsDrugsCharacteristicsLink $DrugsDrugsCharacteristicsLink
- * @property User $user
+ * @property OrderDetails[] $orderDetails модель OrderDetails
+ * @property DrugsDrugsCharacteristicsLink $DrugsDrugsCharacteristicsLink модель DrugsDrugsCharacteristicsLink
+ * @property User $user модель User
+ * @property $productCart товары добавленные в корзину
  */
 class Orders extends \yii\db\ActiveRecord
 {
+    public $productCart;
+
     /**
      * {@inheritdoc}
      */
@@ -33,7 +37,7 @@ class Orders extends \yii\db\ActiveRecord
         return [
             [['user_id', 'date'], 'required'],
             [['user_id'], 'integer'],
-            [['date'], 'safe'],
+            [['date', 'drugs_drugs_characteristics_link_id'], 'safe'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
@@ -47,12 +51,12 @@ class Orders extends \yii\db\ActiveRecord
             'id' => 'ID',
             'user_id' => 'User ID',
             'date' => 'Дата',
-            'count'=>'count'
+            'count' => 'count'
         ];
     }
 
     /**
-     * Gets query for [[OrderDetails]].
+     * Связь с  [[OrderDetails]].
      *
      * @return \yii\db\ActiveQuery
      */
@@ -61,11 +65,22 @@ class Orders extends \yii\db\ActiveRecord
         return $this->hasMany(OrderDetails::className(), ['orders_id' => 'id']);
     }
 
+    /**
+     * Связь с [[DrugsDrugsCharacteristicsLink]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
     public function getDrugsDrugsCharacteristicsLink()
     {
         return $this->hasOne(DrugsDrugsCharacteristicsLink::className(), ['id' => 'drugs_drugs_characteristics_link_id'])
             ->viaTable('order_details', ['orders_id' => 'id']);
     }
+
+    /**
+     * Связь с [[DrugsCharacteristics]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
     public function getDrugsCharacteristics()
     {
         return $this->hasOne(DrugsCharacteristics::className(), ['id' => 'drugs_characteristics_id'])
@@ -75,7 +90,7 @@ class Orders extends \yii\db\ActiveRecord
 
 
     /**
-     * Gets query for [[User]].
+     * Связь с [[User]].
      *
      * @return \yii\db\ActiveQuery
      */
@@ -84,19 +99,18 @@ class Orders extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
-//    /* Геттеры для фио */
-//    public function getUserSurname()
-//    {
-//        return $this->user->surname;
-//    }
-//
-//    public function getUserName()
-//    {
-//        return $this->user->name;
-//    }
-//
-//    public function getUserPatronymic()
-//    {
-//        return $this->user->patronymic;
-//    }
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            foreach ($this->productCart as $value) {
+                $orderDetails = new OrderDetails();
+                $orderDetails->drugs_drugs_characteristics_link_id = $value['id'];
+                $orderDetails->orders_id = $this->id;
+                $orderDetails->count = $value['quantity'];
+                $orderDetails->save();
+            }
+        }
+
+        return true;
+    }
 }
