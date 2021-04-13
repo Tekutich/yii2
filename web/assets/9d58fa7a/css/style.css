@@ -1,0 +1,517 @@
+.col-product {
+    min-width: 300px;
+    margin-top: 30px !important;
+}
+
+.add-cart {
+    max-width: 150px;
+}
+
+.btn {
+    /*border: 1px solid #ffffff;;*/
+    /*color: #ffffff;*/
+    max-width: 350px;
+}
+
+.price {
+    font-size: 20px;
+}
+
+.btn-primary {
+    /*font-size: 20px;*/
+    /*border-radius: 10px;*/
+    /*color: #ffffff;*/
+    /*width: 80%;*/
+    /*background-color: #5b8ab5;*/
+}
+
+.img-product {
+    max-width: 200px !important;;
+    max-height: 300px;
+    margin-top: 30px;
+}
+
+.img-cart {
+    width: 140px;
+    height: 90px;
+    margin-bottom: 10px;
+}
+
+.row-flex {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+
+.navigation {
+    background: #b2daff;
+}
+
+@media (max-device-width: 768px) {
+    .col-product {
+        min-width: 80%;
+    }
+}
+
+.tag-button {
+    text-align: center
+}
+
+.hr-bottom {
+    border-bottom: 2px solid black;
+    margin-bottom: 20px;
+}
+
+.badge {
+    background: white;
+    color: black;
+}
+
+.products-cart {
+    margin-top: 65px;
+}
+
+#products-show {
+    margin-top: 100px;
+}
+
+.name-product {
+    font-size: 20px;
+}
+
+.border-up {
+    border-bottom: 1px solid black;
+    margin-top: 25px;
+}
+
+.head-link {
+    color: #ffffff;
+}
+
+.minus, .plus {
+    background: #236093;
+    display: inline-block;
+    height: 25px;
+    width: 35px;
+    font-size: 20px;
+    line-height: 18px;
+    text-align: center;
+    /* padding: 3px 0 0; */
+    cursor: pointer;
+    margin-right: 3px;
+    font-size: 35px;
+    color: white;
+    border: 0px solid white;
+    border-radius: 8px;
+
+}
+
+.plus:hover {
+    background: #2847dc;
+}
+
+.minus:hover {
+    background: #2847dc;
+}
+
+.plus:active {
+    border: 1px solid #111a6f;
+    border-radius: 8px;
+}
+
+.minus:active {
+    border: 1px solid #111a6f;
+    border-radius: 8px;
+}
+
+.minus, .plus, .quantity {
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+}
+
+.minus {
+    /*padding:1px 0 0;*/
+    /*height:23px;*/
+}
+
+.quantity {
+    font-size: 25px;
+    border: none;
+    width: 20px;
+    cursor: default;
+
+}
+
+.quantity:focus {
+    border: none;
+!important;
+    outline: none;
+}
+
+.button-registration {
+    margin-top: 25px;
+}
+
+.breadcrumb li {
+    margin-left: 10px;
+}
+
+.help-block {
+    color: red;
+}
+
+.fade:not(.show) {
+    opacity: 1 !important;
+}
+
+.footer {
+    background-color: #f5f5f5;
+    margin-top: auto;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.no-product-text {
+    font-size: 30px;
+    color: #613434;
+    font-style: italic;
+}
+
+.breadcrumb{
+    margin-top: 20px;
+}
+
+.page-link.active{
+    background: #e9ecef;
+}
+
+.page-link.disabled {
+    color: #b0b7be;
+    background: #e9ecef;
+}
+
+.page-link.disabled span{
+    background: #e9ecef;
+}
+
+td .btn{
+    margin-top: 10px;
+}
+
+.body-login {
+    height: 100%;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #f5f5f5;
+}
+
+.form-signin {
+    width: 100%;
+    max-width: 420px;
+    padding: 15px;
+    margin: auto;
+}
+
+.form-label-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.form-label-group input,
+.form-label-group label {
+    height: 3.125rem;
+    padding: .75rem;
+}
+
+.form-label-group label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    margin-bottom: 0; /* Override default `<label>` margin */
+    line-height: 1.5;
+    color: #495057;
+    pointer-events: none;
+    cursor: text; /* Match the input under the label */
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    transition: all .1s ease-in-out;
+}
+
+.form-label-group input::-webkit-input-placeholder {
+    color: transparent;
+}
+
+.form-label-group input::-moz-placeholder {
+    color: transparent;
+}
+
+.form-label-group input:-ms-input-placeholder {
+    color: transparent;
+}
+
+.form-label-group input::-ms-input-placeholder {
+    color: transparent;
+}
+
+.form-label-group input::placeholder {
+    color: transparent;
+}
+
+.form-label-group input:not(:-moz-placeholder-shown) {
+    padding-top: 1.25rem;
+    padding-bottom: .25rem;
+}
+
+.form-label-group input:not(:-ms-input-placeholder) {
+    padding-top: 1.25rem;
+    padding-bottom: .25rem;
+}
+
+.form-label-group input:not(:placeholder-shown) {
+    padding-top: 1.25rem;
+    padding-bottom: .25rem;
+}
+
+.form-label-group input:not(:-moz-placeholder-shown) ~ label {
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    font-size: 12px;
+    color: #777;
+}
+
+.form-label-group input:not(:-ms-input-placeholder) ~ label {
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    font-size: 12px;
+    color: #777;
+}
+
+.form-label-group input:not(:placeholder-shown) ~ label {
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    font-size: 12px;
+    color: #777;
+}
+
+.form-label-group input:-webkit-autofill ~ label {
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    font-size: 12px;
+    color: #777;
+}
+
+/* Fallback for Edge
+-------------------------------------------------- */
+@supports (-ms-ime-align: auto) {
+    .form-label-group {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column-reverse;
+        flex-direction: column-reverse;
+    }
+
+    .form-label-group label {
+        position: static;
+    }
+
+    .form-label-group input::-ms-input-placeholder {
+        color: #777;
+    }
+}
+
+.btn-enter{
+    max-width: 100%;
+}
+
+.btn-registration{
+    width: 100%;
+}
+
+.fade:not(.show) {
+    opacity: 1 !important;
+}
+
+.footer {
+    background-color: #f5f5f5;
+    margin-top: auto;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.no-product-text {
+    font-size: 30px;
+    color: #613434;
+    font-style: italic;
+}
+
+.breadcrumb{
+    margin-top: 20px;
+}
+
+.page-link.active{
+    background: #e9ecef;
+}
+
+.page-link.disabled {
+    color: #b0b7be;
+    background: #e9ecef;
+}
+
+.page-link.disabled span{
+    background: #e9ecef;
+}
+
+td .btn{
+    margin-top: 10px;
+}
+
+.body-login {
+    height: 100%;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #f5f5f5;
+}
+
+.form-signin {
+    width: 100%;
+    max-width: 420px;
+    padding: 15px;
+    margin: auto;
+}
+
+.form-label-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.form-label-group input,
+.form-label-group label {
+    height: 3.125rem;
+    padding: .75rem;
+}
+
+.form-label-group label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    margin-bottom: 0; /* Override default `<label>` margin */
+    line-height: 1.5;
+    color: #495057;
+    pointer-events: none;
+    cursor: text; /* Match the input under the label */
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    transition: all .1s ease-in-out;
+}
+
+.form-label-group input::-webkit-input-placeholder {
+    color: transparent;
+}
+
+.form-label-group input::-moz-placeholder {
+    color: transparent;
+}
+
+.form-label-group input:-ms-input-placeholder {
+    color: transparent;
+}
+
+.form-label-group input::-ms-input-placeholder {
+    color: transparent;
+}
+
+.form-label-group input::placeholder {
+    color: transparent;
+}
+
+.form-label-group input:not(:-moz-placeholder-shown) {
+    padding-top: 1.25rem;
+    padding-bottom: .25rem;
+}
+
+.form-label-group input:not(:-ms-input-placeholder) {
+    padding-top: 1.25rem;
+    padding-bottom: .25rem;
+}
+
+.form-label-group input:not(:placeholder-shown) {
+    padding-top: 1.25rem;
+    padding-bottom: .25rem;
+}
+
+.form-label-group input:not(:-moz-placeholder-shown) ~ label {
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    font-size: 12px;
+    color: #777;
+}
+
+.form-label-group input:not(:-ms-input-placeholder) ~ label {
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    font-size: 12px;
+    color: #777;
+}
+
+.form-label-group input:not(:placeholder-shown) ~ label {
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    font-size: 12px;
+    color: #777;
+}
+
+.form-label-group input:-webkit-autofill ~ label {
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    font-size: 12px;
+    color: #777;
+}
+
+/* Fallback for Edge
+-------------------------------------------------- */
+@supports (-ms-ime-align: auto) {
+    .form-label-group {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column-reverse;
+        flex-direction: column-reverse;
+    }
+
+    .form-label-group label {
+        position: static;
+    }
+
+    .form-label-group input::-ms-input-placeholder {
+        color: #777;
+    }
+}
+
+.btn-enter{
+    max-width: 100%;
+}
+
+.btn-registration{
+    width: 100%;
+}
