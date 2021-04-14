@@ -42,8 +42,6 @@ class DrugsController extends \yii\web\Controller
             $drugInfo->drugsIndicationsForUses;
         }
 
-        $this->view->title = $drugInfo['trade_name'];
-
         return $this->render('view', ['drugInfo' => $drugInfo]);
     }
 }

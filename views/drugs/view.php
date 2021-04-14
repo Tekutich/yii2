@@ -11,6 +11,7 @@ $internationalName = $drugInfo['international_name'];
 foreach ($drugInfo['drugsIndicationsForUses'] as $value) {
     $indication .= $value['indication'];
 }
+$this->title = $drugInfo['trade_name'];
 ?>
 <script>
     $(function () {
