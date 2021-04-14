@@ -45,6 +45,14 @@ class UserSearch extends User
             'query' => $query,
         ]);
 
+        $dataProvider->setSort([
+            'defaultOrder' => [
+                'surname' => SORT_ASC,
+                'name' => SORT_ASC,
+                'patronymic' => SORT_ASC
+            ],
+        ]);
+
         $this->load($params);
 
         if (!$this->validate()) {
