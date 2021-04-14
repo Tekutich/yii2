@@ -37,7 +37,7 @@ class DrugsController extends \yii\web\Controller
 
         $product=$this->findModel($productId);
 
-        return $this->render('view', ['drugInfo' => $product]);
+        return $this->render('view', ['product' => $product]);
     }
 
     /**

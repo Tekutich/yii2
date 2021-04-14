@@ -2,13 +2,13 @@
 
 use app\assets\AppAsset;
 
-/** @var  $drugInfo */
+/** @var  $product */
 
 $bundle = AppAsset::register($this);
-$tradeName = $drugInfo->trade_name;
-$internationalName =$drugInfo->international_name;
+$tradeName = $product->trade_name;
+$internationalName =$product->international_name;
 
-foreach ($drugInfo->drugsIndicationsForUses as $value) {
+foreach ($product->drugsIndicationsForUses as $value) {
     $indication .= $value['indication'];
 }
 $this->title = $tradeName;
@@ -141,7 +141,7 @@ $this->title = $tradeName;
 <h5 class="text-start">Формы выпуска:</h5>
 <?php
 
-foreach ($drugInfo->drugsCharacteristics as $key => $value):
+foreach ($product->drugsCharacteristics as $key => $value):
     $form_of_issue = $value['form_of_issue'];
     $dosage = $value['dosage'];
     $cost = $value['cost'];
@@ -163,7 +163,7 @@ foreach ($drugInfo->drugsCharacteristics as $key => $value):
         </div>
         <div class="col justify content-center my-auto ">
             <button class="btn btn-primary add-cart"
-                    value="<?= $drugInfo['drugsDrugsCharacteristicsLinks'][$key]['id'] ?>">В корзину
+                    value="<?= $product['drugsDrugsCharacteristicsLinks'][$key]['id'] ?>">В корзину
             </button>
         </div>
     </div>
