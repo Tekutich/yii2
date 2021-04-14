@@ -8,21 +8,11 @@
 }
 
 .btn {
-    /*border: 1px solid #ffffff;;*/
-    /*color: #ffffff;*/
     max-width: 350px;
 }
 
 .price {
     font-size: 20px;
-}
-
-.btn-primary {
-    /*font-size: 20px;*/
-    /*border-radius: 10px;*/
-    /*color: #ffffff;*/
-    /*width: 80%;*/
-    /*background-color: #5b8ab5;*/
 }
 
 .img-product {
@@ -41,7 +31,6 @@
     display: flex;
     flex-flow: row wrap;
 }
-
 
 .navigation {
     background: #b2daff;
@@ -144,8 +133,12 @@
     outline: none;
 }
 
-.logout{
-    margin-bottom: -14px;
+.logout {
+    height: 100%;
+}
+
+.nav-item.mx-auto.pr-3 form {
+    height: 100%;
 }
 
 .button-registration {
