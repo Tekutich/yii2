@@ -46,16 +46,16 @@ AppAsset::register($this);
 
         'options' => ['class' => 'navbar-nav ml-auto'],
         'items' => array_merge([
-            ['options' => ['class' => 'nav-item mx-auto pr-3 '], 'label' => 'Каталог', 'url' => ['/drugs/index']],
-            ['options' => ['class' => 'nav-item mx-auto pr-3 '], 'label' => 'Корзина', 'url' => ['/cart/index']],
+            ['options' => ['class' => 'nav-item mx-auto pr-3'], 'label' => 'Каталог', 'url' => ['/drugs/index']],
+            ['options' => ['class' => 'nav-item mx-auto pr-3'], 'label' => 'Корзина', 'url' => ['/cart/index']],
         ], Yii::$app->user->isGuest ? [
             ['label' => 'Вход', 'url' => ['/site/login']]
         ] : array_merge(
             User::isUserAdmin(Yii::$app->user->identity->email) ?
-                [['label' => 'Пользователи', 'url' => ['/users/index']], ['label' => 'Заказы', 'url' => ['/orders/index']]] :
-                [['label' => 'Заказы', 'url' => ['/user-orders/index']]],
+                [['options' => ['class' => 'nav-item mx-auto pr-3'],'label' => 'Пользователи', 'url' => ['/users/index']], ['options' => ['class' => 'nav-item mx-auto pr-3'],'label' => 'Заказы', 'url' => ['/orders/index']]] :
+                [['options' => ['class' => 'nav-item mx-auto pr-3'],'label' => 'Заказы', 'url' => ['/user-orders/index']]],
             [
-                '<li >'
+                "<li class='nav-item mx-auto pr-3'>"
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
                     'Выход (' . Yii::$app->user->identity->email . ')',
