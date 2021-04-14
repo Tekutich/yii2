@@ -5,13 +5,13 @@ use app\assets\AppAsset;
 /** @var  $drugInfo */
 
 $bundle = AppAsset::register($this);
-$tradeName = $drugInfo['trade_name'];
-$internationalName = $drugInfo['international_name'];
+$tradeName = $drugInfo->trade_name;
+$internationalName =$drugInfo->international_name;
 
-foreach ($drugInfo['drugsIndicationsForUses'] as $value) {
+foreach ($drugInfo->drugsIndicationsForUses as $value) {
     $indication .= $value['indication'];
 }
-$this->title = $drugInfo['trade_name'];
+$this->title = $tradeName;
 ?>
 <script>
     $(function () {
@@ -141,12 +141,12 @@ $this->title = $drugInfo['trade_name'];
 <h5 class="text-start">Формы выпуска:</h5>
 <?php
 
-foreach ($drugInfo['drugsCharacteristics'] as $key => $value):
+foreach ($drugInfo->drugsCharacteristics as $key => $value):
     $form_of_issue = $value['form_of_issue'];
     $dosage = $value['dosage'];
     $cost = $value['cost'];
     ?>
-    <!--вывод форм выпуска-->
+    <!--вывод форм выпуска -->
     <div id="products-Characteristics"
          class="row justify-content-md-center-my-auto row-flex text-center border-up">
         <div class="col justify content-center my-auto ">
