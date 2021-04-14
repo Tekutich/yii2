@@ -163,7 +163,7 @@ foreach ($product->drugsCharacteristics as $key => $value):
         </div>
         <div class="col justify content-center my-auto ">
             <button class="btn btn-primary add-cart"
-                    value="<?= $product['drugsDrugsCharacteristicsLinks'][$key]['id'] ?>">В корзину
+                    value="<?= $product->drugsDrugsCharacteristicsLinks[$key]->id ?>">В корзину
             </button>
         </div>
     </div>
