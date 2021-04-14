@@ -6,7 +6,7 @@ use yii\helpers\Html;
 use kartik\icons\Icon;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\OrdersSearch */
+/* @var $searchModel app\models\UserOrdersSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Заказы';
@@ -28,8 +28,10 @@ Icon::map($this);
             'prevPageCssClass' => 'page-link',
             'pageCssClass' => 'page-link',
         ],
+
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+
             //товары
             [
                 'attribute' => 'products',
@@ -54,6 +56,7 @@ Icon::map($this);
                 'label' => 'Дата',
                 'filter' => DatePicker::widget([
                     'model' => $searchModel,
+                    'attribute'=>'date',
                     'pluginOptions' => [
                         'format' => 'dd.mm.yyyy',
                         'autoclose' => true,
