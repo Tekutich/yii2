@@ -26,11 +26,11 @@ $this->title = 'Регистрация';
 
     <?= $form->field($model, 'password', ['template' => '{input}{label}{error}{hint}', 'options' => ['class' => 'form-label-group'],])->passwordInput(['class' => 'form-control', 'placeholder' => "Пароль"]) ?>
 
-    <?= $form->field($model, 'surname', ['template' => '{input}{label}{error}{hint}', 'options' => ['class' => 'form-label-group'],])->passwordInput(['class' => 'form-control', 'placeholder' => "Фамилия"]) ?>
+    <?= $form->field($model, 'surname', ['template' => '{input}{label}{error}{hint}', 'options' => ['class' => 'form-label-group'],])->textInput(['class' => 'form-control', 'placeholder' => "Фамилия"]) ?>
 
-    <?= $form->field($model, 'name', ['template' => '{input}{label}{error}{hint}', 'options' => ['class' => 'form-label-group'],])->passwordInput(['class' => 'form-control', 'placeholder' => "Имя"]) ?>
+    <?= $form->field($model, 'name', ['template' => '{input}{label}{error}{hint}', 'options' => ['class' => 'form-label-group'],])->textInput(['class' => 'form-control', 'placeholder' => "Имя"]) ?>
 
-    <?= $form->field($model, 'patronymic', ['template' => '{input}{label}{error}{hint}', 'options' => ['class' => 'form-label-group'],])->passwordInput(['class' => 'form-control', 'placeholder' => "Отчество"]) ?>
+    <?= $form->field($model, 'patronymic', ['template' => '{input}{label}{error}{hint}', 'options' => ['class' => 'form-label-group'],])->textInput(['class' => 'form-control', 'placeholder' => "Отчество"]) ?>
 
     <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-primary btn-registration']) ?>
 
