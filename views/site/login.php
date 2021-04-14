@@ -33,5 +33,5 @@ $this->title = 'Вход';
     </label>
 </div>
 <?= Html::submitButton('Войти', ['class' => 'btn btn-lg btn-primary btn-block btn-enter', 'name' => 'login-button']) ?>
-<?= Html::a('Регистрация', '/index.php?r=site%2Fregistration', ['class' => 'btn btn-primary button-registration']) ?>
+<?= Html::a('Регистрация', 'registration', ['class' => 'btn btn-primary button-registration']) ?>
 <?php ActiveForm::end(); ?>
