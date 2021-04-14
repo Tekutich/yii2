@@ -84,19 +84,19 @@ Icon::map($this);
 
                     'view' => function ($url, $model) {
                         return Html::a(Icon::show('eye'), $url, [
-                            'title' => 'View',
+                            'title' => 'Просмотр',
                             'class' => 'btn btn-primary'
                         ]);
                     },
                     'update' => function ($url, $model) {
                         return Html::a(Icon::show('edit'), $url, [
-                            'title' => 'Update',
+                            'title' => 'Редактирование',
                             'class' => 'btn btn-warning',
                         ]);
                     },
                     'delete' => function ($url, $model) {
                         return Html::a(Icon::show('trash'), $url, [
-                            'title' => 'Delete',
+                            'title' => 'Удаление',
                             'class' => 'btn btn-danger',
                             'data' => [
                                 'method' => 'post',

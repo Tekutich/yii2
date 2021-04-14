@@ -87,7 +87,7 @@ Icon::map($this);
                 'buttons' => [
                     'view' => function ($url, $model) {
                         return Html::a(Icon::show('eye'), ["order", 'id' => $model->id], [
-                            'title' => 'View',
+                            'title' => 'Просмотр',
                             'class' => 'btn btn-primary'
                         ]);
                     },

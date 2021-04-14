@@ -102,13 +102,13 @@ Icon::map($this);
                 'buttons' => [
                     'view' => function ($url, $model) {
                         return Html::a(Icon::show('eye'), ["order", 'id' => $model->id], [
-                            'title' => 'View',
+                            'title' => 'Просмотр',
                             'class' => 'btn btn-primary'
                         ]);
                     },
                     'delete' => function ($url, $model) {
                         return Html::a(Icon::show('trash'), ["/admin/delete-order", 'id' => $model->id], [
-                            'title' => 'Delete',
+                            'title' => 'Удаление',
                             'class' => 'btn btn-danger',
                             'data' => [
                                 'method' => 'post',
