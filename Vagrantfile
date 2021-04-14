@@ -7,7 +7,7 @@ Vagrant.configure(2) do |config|
     config.vm.provider :virtualbox do |virtualbox, override|
       virtualbox.memory = 4096
       virtualbox.cpus = 2
-      virtualbox.name = "php-yii"
+      virtualbox.name = "php-yii2"
       virtualbox.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
     end
 
@@ -162,16 +162,9 @@ Vagrant.configure(2) do |config|
         sudo mysql -u root -p"asd_123" testdb < /vagrant/sql/db.sql
         echo '*/2 * * * * mysqldump --skip-comments -u root -p"asd_123" testdb > /vagrant/sql/db.sql' | crontab
 
-        if [ ! -d /vagrant/vendor ]
-        then
-            cd /home/vagrant
-            /usr/local/bin/composer create-project --prefer-dist yiisoft/yii2-app-basic
-            rm -f /home/vagrant/yii2-app-basic/Vagrantfile
-            cp -r /home/vagrant/yii2-app-basic/* /vagrant/
-            rm -rf /home/vagrant/yii2-app-basic
-            cd /vagrant
-            /usr/local/bin/composer update
-        fi
+        # Обновление библиотек
+        cd /vagrant
+        /usr/local/bin/composer update
     SHELL
 
     config.vm.provision "shell", inline: <<-'SHELL', run: 'always'
