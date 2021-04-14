@@ -144,6 +144,10 @@
     outline: none;
 }
 
+.logout{
+    margin-bottom: -14px;
+}
+
 .button-registration {
     margin-top: 25px;
 }

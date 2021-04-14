@@ -22,9 +22,9 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'email')->textInput() ?>
 
     <? if ($model->isNewRecord) { ?>
-        <?= $form->field($model, 'password')->textInput()->label('Пароль') ?>
+        <?= $form->field($model, 'password')->passwordInput()->label('Пароль') ?>
     <? } else { ?>
-        <?= $form->field($model, 'new_password')->textInput()->label('Новый пароль') ?>
+        <?= $form->field($model, 'new_password')->passwordInput()->label('Новый пароль') ?>
     <? } ?>
     <?= $form->field($model, 'role')->dropDownList(
         [
