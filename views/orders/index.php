@@ -30,7 +30,6 @@ Icon::map($this);
         ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'id',
             [
                 'attribute' => 'userSur',
                 'format' => 'text',
@@ -107,7 +106,7 @@ Icon::map($this);
                         ]);
                     },
                     'delete' => function ($url, $model) {
-                        return Html::a(Icon::show('trash'), ["/admin/delete-order", 'id' => $model->id], [
+                        return Html::a(Icon::show('trash'), ["delete-order", 'id' => $model->id], [
                             'title' => 'Удаление',
                             'class' => 'btn btn-danger',
                             'data' => [

@@ -21,7 +21,7 @@ class OrdersSearch extends Orders
     {
         return [
             [['id',], 'integer'],
-            [['date', 'user_id', 'userSur', 'userName', 'userPatronymic'], 'safe'],
+            [['date', 'user_id', 'userSur', 'userName', 'userPatronymic','id'], 'safe'],
         ];
     }
 
@@ -54,13 +54,19 @@ class OrdersSearch extends Orders
 
         $dataProvider->setSort([
             'defaultOrder' => [
-                'date' => SORT_DESC
+                'date' => SORT_DESC,
+                'id' => SORT_DESC
             ],
             'attributes' => [
                 'userSur' => [
                     'asc' => ['users.surname' => SORT_ASC],
                     'desc' => ['users.surname' => SORT_DESC],
                     'label' => 'Фамилия'
+                ],
+                'id' => [
+                    'asc' => ['id' => SORT_ASC],
+                    'desc' => ['id' => SORT_DESC],
+                    'label' => 'ID'
                 ],
                 'userName' => [
                     'asc' => ['users.name' => SORT_ASC],

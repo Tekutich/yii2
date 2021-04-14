@@ -85,7 +85,7 @@ class OrdersController extends Controller
             Yii::$app->session->setFlash('error', Yii::t('app', 'Невозможно удалить заказ' . $e));
         }
 
-        return $this->redirect(['orders']);
+        return $this->redirect(['index']);
     }
 
     /**
