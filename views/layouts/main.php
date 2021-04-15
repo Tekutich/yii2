@@ -52,7 +52,7 @@ AppAsset::register($this);
             ['label' => 'Вход', 'url' => ['/site/login']]
         ] : array_merge(
             User::isUserAdmin(Yii::$app->user->identity->email) ?
-                [['options' => ['class' => 'nav-item mx-auto pr-3'],'label' => 'Пользователи', 'url' => ['/users/index']], ['options' => ['class' => 'nav-item mx-auto pr-3'],'label' => 'Заказы', 'url' => ['/orders/index']]] :
+                [['options' => ['class' => 'nav-item mx-auto pr-3'],'label' => 'Пользователи', 'url' => ['/users/index']], ['options' => ['class' => 'nav-item mx-auto pr-3'],'label' => 'Заказы', 'url' => ['/orders/index']], ['options' => ['class' => 'nav-item mx-auto pr-3'],'label' => 'Отчёты', 'url' => ['/export/index']]] :
                 [['options' => ['class' => 'nav-item mx-auto pr-3'],'label' => 'Заказы', 'url' => ['/user-orders/index']]],
             [
                 "<li class='nav-item mx-auto pr-3'>"
