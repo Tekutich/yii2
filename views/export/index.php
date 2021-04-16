@@ -12,10 +12,10 @@ use yii\bootstrap4\Html;
         <?= Html::a('Заказы', ['orders'], ['class' => 'btn btn-success']) ?>
     </div>
     <div class="col text-center">
-        <?= Html::a('Наличие лекарств(форма №1)', ['availability-of-goods-form-one'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Наличие лекарств(таблица)', ['balance-of-goods-table'], ['class' => 'btn btn-success']) ?>
     </div>
     <div class="col text-center">
-        <?= Html::a('Наличие лекарств(форма №2)', ['availability-of-goods-form-two'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Наличие лекарств(список)', ['balance-of-goods-list'], ['class' => 'btn btn-success']) ?>
     </div>
 </div>
 </p>

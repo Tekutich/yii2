@@ -20,14 +20,14 @@ CREATE TABLE `balance_of_goods` (
   PRIMARY KEY (`id`),
   KEY `drugs_drugs_characteristics_link_id` (`drugs_drugs_characteristics_link_id`),
   KEY `pharmacies_id` (`pharmacies_id`),
-  CONSTRAINT `balance_of_goods_ibfk_2` FOREIGN KEY (`drugs_drugs_characteristics_link_id`) REFERENCES `drugs_drugs_characteristics_link` (`drugs_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `balance_of_goods_ibfk_2` FOREIGN KEY (`drugs_drugs_characteristics_link_id`) REFERENCES `drugs_drugs_characteristics_link` (`id`),
   CONSTRAINT `balance_of_goods_ibfk_3` FOREIGN KEY (`pharmacies_id`) REFERENCES `pharmacies` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='остаток товаров';
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='остаток товаров';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `balance_of_goods` WRITE;
 /*!40000 ALTER TABLE `balance_of_goods` DISABLE KEYS */;
-INSERT INTO `balance_of_goods` VALUES (1,1,2,10),(2,1,3,10),(3,1,3,10),(4,3,4,15),(5,3,7,11),(6,10,10,5),(7,6,6,4),(8,7,3,5),(9,6,7,2),(10,1,9,14);
+INSERT INTO `balance_of_goods` VALUES (1,1,2,10),(2,1,3,10),(5,3,7,11),(6,10,10,5),(7,6,6,4),(8,7,3,5),(9,6,7,2),(10,1,9,14),(11,2,3,322),(13,2,4,1),(18,4,1,555);
 /*!40000 ALTER TABLE `balance_of_goods` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `drugs`;
@@ -168,7 +168,7 @@ CREATE TABLE `pharmacies` (
 
 LOCK TABLES `pharmacies` WRITE;
 /*!40000 ALTER TABLE `pharmacies` DISABLE KEYS */;
-INSERT INTO `pharmacies` VALUES (1,'Аптека №1','Г. Воронеж'),(2,'Аптека №1','Г. Воронеж'),(3,'Аптека №2','Г. Воронеж'),(4,'Аптека №3','Г. Воронеж'),(5,'Аптека №4','Г. Воронеж'),(6,'Аптека №5','Г. Воронеж'),(7,'Аптека №6','Г. Воронеж'),(8,'Аптека №7','Г. Воронеж'),(9,'Аптека №8','Г. Воронеж'),(10,'Аптека №9','Г. Воронеж');
+INSERT INTO `pharmacies` VALUES (1,'Аптека №1','Г. Воронеж'),(2,'Аптека №1(2)','Г. Воронеж'),(3,'Аптека №2','Г. Воронеж'),(4,'Аптека №3','Г. Воронеж'),(5,'Аптека №4','Г. Воронеж'),(6,'Аптека №5','Г. Воронеж'),(7,'Аптека №6','Г. Воронеж'),(8,'Аптека №7','Г. Воронеж'),(9,'Аптека №8','Г. Воронеж'),(10,'Аптека №9','Г. Воронеж');
 /*!40000 ALTER TABLE `pharmacies` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `users`;
@@ -190,7 +190,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Текутьев','Андрей','Андреевич','andrey@mail.ru','$2y$13$W8vDKS/5mScd395hTm5qvuf2EhpbkvS7ibojh1BFjx5pCIKEm2UVC',1,'GP3XtA-T2PYrP5L8mD-lzVbQX4J6Oz9a'),(2,'Иванов','Иван','Иванович','ivan@mail.ru','$2y$13$W8vDKS/5mScd395hTm5qvuf2EhpbkvS7ibojh1BFjx5pCIKEm2UVC',0,'eQ3y_av3RUfKuWKsS5ADIxOsarWP8K0k'),(3,'Иванов2','Иван','Иванович','ivan2@mail.ru','$2y$13$W8vDKS/5mScd395hTm5qvuf2EhpbkvS7ibojh1BFjx5pCIKEm2UVC',0,NULL),(4,'Иванов3','Иван','Иванович','ivan3@mail.ru','$2y$13$W8vDKS/5mScd395hTm5qvuf2EhpbkvS7ibojh1BFjx5pCIKEm2UVC',0,NULL),(5,'Иванов4','Иван','Иванович','ivan4@mail.ru','d297e83e2e5f779905b98aad87a8e59d539272fc',0,NULL),(6,'Иванов5','Иван','Иванович','ivan5@mail.ru','d297e83e2e5f779905b98aad87a8e59d539272fc',0,NULL),(7,'Иванов6','Иван','Иванович','ivan6@mail.ru','d297e83e2e5f779905b98aad87a8e59d539272fc',0,NULL),(8,'Иванов7','Иван','Иванович','ivan71@mail.ru','d297e83e2e5f779905b98aad87a8e59d539272fc',0,NULL),(9,'Иванов8','Иван','Иванович','ivan8@mail.ru','d297e83e2e5f779905b98aad87a8e59d539272fc',0,NULL),(10,'Иванов9','Иван9','Иванович9','ivan99@mail.ru','$2y$13$r3hlLd0zujXny8PNa8xkxeOYDMgxGx7U2w5R8cxS3moznznqCUMZO',0,'C7OLGF05o92KNtVT1G97V1be7s3MsYIu'),(19,'Иванов999','Иван999','Иванович999','ivan999@mail.ru','$2y$13$XlwOefYd.vLFG0XJz/T9yO4RfUNx64bVafJ3Jp2hn1xKhfaWsTOuK',0,'Mwg86U1_L8ttIDJGxE3zoCoZG64lc10V'),(20,'Иванов123','Иван123','Иванович123','ivan123@mail.ru','$2y$13$y2J7Lv6pRtVabWUNC2gPuOFgrUEDVzBn65kuD6GqONXoEPLsjl8Zm',0,'UhaEv-LbzP_ujYH3JJbfR2osGY0L4_Gg'),(24,'Андреев','Андрей','Иванович','andrey111@mail.ru','$2y$13$G6hHSLCjHDOXoEf4YxUHd.y0ckNekmUpzVUTXJ.LKhuxBYCmFXgfm',0,NULL),(25,'Иванов','Андрей','Иванович','ivan712311@mail.ru','$2y$13$82YdEKsjA2BHV3oPvp0BUuY/5tZIHiHVhdULOV.9XhoPnHRpWZqFC',0,NULL);
+INSERT INTO `users` VALUES (1,'Текутьев','Андрей','Андреевич','andrey@mail.ru','$2y$13$W8vDKS/5mScd395hTm5qvuf2EhpbkvS7ibojh1BFjx5pCIKEm2UVC',1,'EWDrPVxPJQiNfbV-sEDmrVpDUrYpNtpd'),(2,'Иванов','Иван','Иванович','ivan@mail.ru','$2y$13$W8vDKS/5mScd395hTm5qvuf2EhpbkvS7ibojh1BFjx5pCIKEm2UVC',0,'eQ3y_av3RUfKuWKsS5ADIxOsarWP8K0k'),(3,'Иванов2','Иван','Иванович','ivan2@mail.ru','$2y$13$W8vDKS/5mScd395hTm5qvuf2EhpbkvS7ibojh1BFjx5pCIKEm2UVC',0,NULL),(4,'Иванов3','Иван','Иванович','ivan3@mail.ru','$2y$13$W8vDKS/5mScd395hTm5qvuf2EhpbkvS7ibojh1BFjx5pCIKEm2UVC',0,NULL),(5,'Иванов4','Иван','Иванович','ivan4@mail.ru','d297e83e2e5f779905b98aad87a8e59d539272fc',0,NULL),(6,'Иванов5','Иван','Иванович','ivan5@mail.ru','d297e83e2e5f779905b98aad87a8e59d539272fc',0,NULL),(7,'Иванов6','Иван','Иванович','ivan6@mail.ru','d297e83e2e5f779905b98aad87a8e59d539272fc',0,NULL),(8,'Иванов7','Иван','Иванович','ivan71@mail.ru','d297e83e2e5f779905b98aad87a8e59d539272fc',0,NULL),(9,'Иванов8','Иван','Иванович','ivan8@mail.ru','d297e83e2e5f779905b98aad87a8e59d539272fc',0,NULL),(10,'Иванов9','Иван9','Иванович9','ivan99@mail.ru','$2y$13$r3hlLd0zujXny8PNa8xkxeOYDMgxGx7U2w5R8cxS3moznznqCUMZO',0,'C7OLGF05o92KNtVT1G97V1be7s3MsYIu'),(19,'Иванов999','Иван999','Иванович999','ivan999@mail.ru','$2y$13$XlwOefYd.vLFG0XJz/T9yO4RfUNx64bVafJ3Jp2hn1xKhfaWsTOuK',0,'Mwg86U1_L8ttIDJGxE3zoCoZG64lc10V'),(20,'Иванов123','Иван123','Иванович123','ivan123@mail.ru','$2y$13$y2J7Lv6pRtVabWUNC2gPuOFgrUEDVzBn65kuD6GqONXoEPLsjl8Zm',0,'UhaEv-LbzP_ujYH3JJbfR2osGY0L4_Gg'),(24,'Андреев','Андрей','Иванович','andrey111@mail.ru','$2y$13$G6hHSLCjHDOXoEf4YxUHd.y0ckNekmUpzVUTXJ.LKhuxBYCmFXgfm',0,NULL),(25,'Иванов','Андрей','Иванович','ivan712311@mail.ru','$2y$13$82YdEKsjA2BHV3oPvp0BUuY/5tZIHiHVhdULOV.9XhoPnHRpWZqFC',0,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
