@@ -7,7 +7,6 @@ use app\models\Orders;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\Writer\Word2007;
 use Yii;
@@ -20,6 +19,10 @@ class ExportController extends \yii\web\Controller
         return $this->render('index');
     }
 
+    /**
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     */
     public function actionOrders()
     {
 
@@ -42,13 +45,13 @@ class ExportController extends \yii\web\Controller
         $sheet->setCellValue('B1', 'ФИО');
         $sheet->setCellValue('C1', 'Товары');
         $sheet->setCellValue('D1', 'Количество');
-
+        $number=1;
         foreach ($model as $value) {
 
             $cellIdStart = 'A' . $i;
             $cellNameStart = 'B' . $i;
 
-            $sheet->setCellValue($cellIdStart, '#' . $value[ 'id' ]);
+            $sheet->setCellValue($cellIdStart, '#' . $number);
             $sheet->setCellValue($cellNameStart, $value[ 'user' ][ 'surname' ] . ' ' . $value[ 'user' ][ 'name' ] . ' ' . $value[ 'user' ][ 'patronymic' ]);
             foreach ($value[ 'orderDetails' ] as $product) {
                 $cellIdEnd = 'A' . $i;
@@ -65,65 +68,48 @@ class ExportController extends \yii\web\Controller
 
             $sheet->mergeCells("$cellIdStart:$cellIdEnd");
             $sheet->mergeCells("$cellNameStart:$cellNameEnd");
+            $number++;
         }
         $rangeBorder = 'A1:D' . $i;
         $sheet->getStyle($rangeBorder)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
-        $writer = new Xlsx($spreadsheet);
+//        $writer = new Xlsx($spreadsheet);
+//
+//        $response = Yii::$app->getResponse();
+//        $headers = $response->getHeaders();
+//        $headers->set('Content-Type', 'application/vnd.ms-excel');
+//        $headers->set('Content-Disposition', 'attachment;filename="Заказы.xlsx"');
+//        $headers->set('Cache-Control: max-age=0');
+//        ob_start();
+//        $writer->save("php://output");
+//        $content = ob_get_contents();
+//        ob_clean();
 
-        $response = Yii::$app->getResponse();
-        $headers = $response->getHeaders();
-        $headers->set('Content-Type', 'application/vnd.ms-excel');
-        $headers->set('Content-Disposition', 'attachment;filename="Заказы.xlsx"');
-        $headers->set('Cache-Control: max-age=0');
-        ob_start();
-        $writer->save("php://output");
-        $content = ob_get_contents();
-        ob_clean();
+        return $this->outputFile('Excel',$spreadsheet,'Заказы.xlsx');
 
-        return $content;
+
     }
 
+    /**
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     */
     public function actionBalanceOfGoodsTable()
     {
-//        $word = new PHPWord();
-//
-//        $section = $word->addSection();
-//
-//        $section->addText(
-//            '"Learn from yesterday, live for today, hope for tomorrow. '
-//            . 'The important thing is not to stop questioning." '
-//            . '(Albert Einstein)'
-//        );
-
         $word = new \PhpOffice\PhpWord\PhpWord();
 
         $section = $word->addSection();
-        $styleTable = array('borderSize' => 6, 'borderColor' => '999999');
+        $styleTable = array('borderSize' => 6, 'borderColor' => '999999','alignment'=>'center');
         $table = $section->addTable($styleTable);
         $table->addRow();
-        $cellVCentered = array('align' => 'center','valign' => 'center');
+        $cellVCentered = array('align' => 'center',);
+        $cellHCentered = array('valign' => 'center');
         $textBold=array('bold' => true);
         $cellRowSpan = array('vMerge' => 'restart', 'valign' => 'center');
         $cellRowContinue = array('vMerge' => 'continue');
 
-
-        $table->addCell(2000)->addText('#',$textBold,$cellVCentered);
+        $table->addCell(1000)->addText('#',$textBold,$cellVCentered);
         $table->addCell(2000)->addText('Наименование',$textBold,$cellVCentered);
-        $table->addCell(2000)->addText('Форма выпуска',$textBold,$cellVCentered);
+        $table->addCell(2000)->addText('Аптека',$textBold,$cellVCentered);
         $table->addCell(2000)->addText('Количество',$textBold,$cellVCentered);
-
-//        //цикл
-//        $table->addRow();
-//        $table->addCell(2000,$cellRowSpan)->addText('1',array('bold' => false,'align' => 'center'),$cellVCentered);
-//        $table->addCell(2000,$cellRowSpan)->addText('цетрин',array('bold' => false,'align' => 'center'),$cellVCentered);
-//        $table->addCell(2000)->addText('таблетки',array('bold' => false,'align' => 'center'),$cellVCentered);
-//        $table->addCell(2000)->addText('1',array('bold' => false,'align' => 'center'),$cellVCentered);
-//
-//        $table->addRow();
-//        $table->addCell(null, $cellRowContinue);
-//        $table->addCell(null, $cellRowContinue);
-//        $table->addCell(2000)->addText('спрей',array('bold' => false,'align' => 'center'),$cellVCentered);
-//        $table->addCell(2000)->addText('2',array('bold' => false,'align' => 'center'),$cellVCentered);
 
         $model = BalanceOfGoods::find()
             ->with('drugsDrugsCharacteristicsLink.drugs', 'drugsDrugsCharacteristicsLink.drugsCharacteristics', 'pharmacies')
@@ -131,37 +117,41 @@ class ExportController extends \yii\web\Controller
             ->all();
 
         $idDrug=null;
+        $number=1;
 
         foreach ($model as $value) {
-            if ($value[ 'drugsDrugsCharacteristicsLink' ][ 'drugs_id' ] != $idDrug) {
-                $table->addRow();
-                $table->addCell(2000, $cellRowSpan)->addText($value[ 'id' ], null, $cellVCentered);
-                $table->addCell(2000, $cellRowSpan)->addText($value[ 'drugsDrugsCharacteristicsLink' ][ 'drugs' ][ 'trade_name' ] . ' ' . $value[ 'drugsDrugsCharacteristicsLink' ][ 'drugsCharacteristics' ][ 'form_of_issue' ] . ', ' . $value[ 'drugsDrugsCharacteristicsLink' ][ 'drugsCharacteristics' ][ 'dosage' ], null, $cellVCentered);
-            }
             $table->addRow();
-            $table->addCell(null, $cellRowContinue);
-            $table->addCell(null, $cellRowContinue);
-            $table->addCell(2000)->addText($value['pharmacies']['name'] . ', ' . $value['pharmacies']['address'],array('bold' => false,'align' => 'center'),$cellVCentered);
-            $table->addCell(2000)->addText($value[ 'balance' ],array('bold' => false,'align' => 'center'),$cellVCentered);
+            if ($value[ 'drugsDrugsCharacteristicsLink' ][ 'drugs_id' ] != $idDrug) {
+                $table->addCell(1000, $cellRowSpan)->addText('#' .$number, null, $cellVCentered);
+                $table->addCell(2000, $cellRowSpan)->addText($value[ 'drugsDrugsCharacteristicsLink' ][ 'drugs' ][ 'trade_name' ] . ' ' . $value[ 'drugsDrugsCharacteristicsLink' ][ 'drugsCharacteristics' ][ 'form_of_issue' ] . ', ' . $value[ 'drugsDrugsCharacteristicsLink' ][ 'drugsCharacteristics' ][ 'dosage' ], null, $cellVCentered);
+            }else{
+                $table->addCell(null, $cellRowContinue);
+                $table->addCell(null, $cellRowContinue);
+            }
+            $table->addCell(2000,$cellHCentered)->addText($value['pharmacies']['name'] . ', ' . $value['pharmacies']['address'],null,$cellVCentered);
+            $table->addCell(2000,$cellHCentered)->addText($value[ 'balance' ],null,$cellVCentered);
 
             $idDrug = $value[ 'drugsDrugsCharacteristicsLink' ][ 'drugs_id' ];
+            $number++;
         }
-
-
-        $writer = new Word2007($word);
-        $response = Yii::$app->getResponse();
-        $headers = $response->getHeaders();
-        $headers->set('Content-Type', 'application/vnd.ms-office');
-        $headers->set('Content-Disposition', 'attachment;filename="Наличие лекарств.docx"');
-        $headers->set('Cache-Control: max-age=0');
-        ob_start();
-        $writer->save("php://output");
-        $content = ob_get_contents();
-        ob_clean();
-
-        return $content;
+          $this->outputFile('Word',$word,'Наличие лекарств.docx');
+//        $writer = new Word2007($word);
+//        $response = Yii::$app->getResponse();
+//        $headers = $response->getHeaders();
+//        $headers->set('Content-Type', 'application/vnd.ms-office');
+//        $headers->set('Content-Disposition', 'attachment;filename="Наличие лекарств.docx"');
+//        $headers->set('Cache-Control: max-age=0');
+//        ob_start();
+//        $writer->save("php://output");
+//        $content = ob_get_contents();
+//        ob_clean();
+//
+        return $this->outputFile('Word111',$word,'Наличие лекарств.docx');
     }
 
+    /**
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     */
     public function actionBalanceOfGoodsList()
     {
         $model = BalanceOfGoods::find()
@@ -191,12 +181,43 @@ class ExportController extends \yii\web\Controller
             $section->addListItem($value[ 'pharmacies' ][ 'name' ] . ', ' . $value[ 'pharmacies' ][ 'address' ] . ' - ' . $value[ 'balance' ] . ' шт.', 1);
         }
 
-        $writer = IOFactory::createWriter($word, 'Word2007');
+//        $writer = IOFactory::createWriter($word, 'Word2007');
+//
+//        $response = Yii::$app->getResponse();
+//        $headers = $response->getHeaders();
+//        $headers->set('Content-Type', 'application/vnd.ms-office');
+//        $headers->set('Content-Disposition', 'attachment;filename="Наличие.docx"');
+//        $headers->set('Cache-Control: max-age=0');
+//        ob_start();
+//        $writer->save("php://output");
+//        $content = ob_get_contents();
+//        ob_clean();
+
+        return $this->outputFile('Word',$word,'Наличие лекарств.docx');
+    }
+
+    /**
+     * @param $type *Тип либо Word либо Excel
+     * @param $object *объект phpOffice
+     * @param $filename *имя файла
+     * @return false|string
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     */
+    public function outputFile ($type, $object, $filename){
+        switch ($type){
+            case 'Excel':
+                $writer = new Xlsx($object);
+                break;
+            case 'Word':
+                $writer = new Word2007($object);
+                break;
+            default:
+                return "Произошла ошибка выбора типа";
+        }
 
         $response = Yii::$app->getResponse();
         $headers = $response->getHeaders();
-        $headers->set('Content-Type', 'application/vnd.ms-office');
-        $headers->set('Content-Disposition', 'attachment;filename="Наличие.docx"');
+        $headers->set('Content-Disposition', 'attachment;filename='.$filename.'');
         $headers->set('Cache-Control: max-age=0');
         ob_start();
         $writer->save("php://output");
