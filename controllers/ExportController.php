@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\Writer\Word2007;
 use Yii;
 
 class ExportController extends \yii\web\Controller
@@ -100,21 +101,58 @@ class ExportController extends \yii\web\Controller
         $styleTable = array('borderSize' => 6, 'borderColor' => '999999');
         $table = $section->addTable($styleTable);
         $table->addRow();
-        $cellVCentered = array('align' => 'center');
-        $cellHCentered = array('valign' => 'center');
-        $table->addCell(2000,$cellVCentered)->addText('#',array('bold' => true),$cellVCentered);
-        $table->addCell(2000,['align' => 'center'])->addText('ФИО');
-        $table->addCell(2000,['align' => 'center'])->addText('Товары');
-        $table->addCell(2000,['align' => 'center'])->addText('Количество');
+        $cellVCentered = array('align' => 'center','valign' => 'center');
+        $textBold=array('bold' => true);
+        $cellRowSpan = array('vMerge' => 'restart', 'valign' => 'center');
+        $cellRowContinue = array('vMerge' => 'continue');
 
 
+        $table->addCell(2000)->addText('#',$textBold,$cellVCentered);
+        $table->addCell(2000)->addText('Наименование',$textBold,$cellVCentered);
+        $table->addCell(2000)->addText('Форма выпуска',$textBold,$cellVCentered);
+        $table->addCell(2000)->addText('Количество',$textBold,$cellVCentered);
 
-        $writer = \PhpOffice\PhpWord\IOFactory::createWriter($word, 'Word2007');
+//        //цикл
+//        $table->addRow();
+//        $table->addCell(2000,$cellRowSpan)->addText('1',array('bold' => false,'align' => 'center'),$cellVCentered);
+//        $table->addCell(2000,$cellRowSpan)->addText('цетрин',array('bold' => false,'align' => 'center'),$cellVCentered);
+//        $table->addCell(2000)->addText('таблетки',array('bold' => false,'align' => 'center'),$cellVCentered);
+//        $table->addCell(2000)->addText('1',array('bold' => false,'align' => 'center'),$cellVCentered);
+//
+//        $table->addRow();
+//        $table->addCell(null, $cellRowContinue);
+//        $table->addCell(null, $cellRowContinue);
+//        $table->addCell(2000)->addText('спрей',array('bold' => false,'align' => 'center'),$cellVCentered);
+//        $table->addCell(2000)->addText('2',array('bold' => false,'align' => 'center'),$cellVCentered);
 
+        $model = BalanceOfGoods::find()
+            ->with('drugsDrugsCharacteristicsLink.drugs', 'drugsDrugsCharacteristicsLink.drugsCharacteristics', 'pharmacies')
+            ->orderBy(['drugs_drugs_characteristics_link_id' => SORT_ASC, 'pharmacies_id' => SORT_ASC])
+            ->all();
+
+        $idDrug=null;
+
+        foreach ($model as $value) {
+            if ($value[ 'drugsDrugsCharacteristicsLink' ][ 'drugs_id' ] != $idDrug) {
+                $table->addRow();
+                $table->addCell(2000, $cellRowSpan)->addText($value[ 'id' ], null, $cellVCentered);
+                $table->addCell(2000, $cellRowSpan)->addText($value[ 'drugsDrugsCharacteristicsLink' ][ 'drugs' ][ 'trade_name' ] . ' ' . $value[ 'drugsDrugsCharacteristicsLink' ][ 'drugsCharacteristics' ][ 'form_of_issue' ] . ', ' . $value[ 'drugsDrugsCharacteristicsLink' ][ 'drugsCharacteristics' ][ 'dosage' ], null, $cellVCentered);
+            }
+            $table->addRow();
+            $table->addCell(null, $cellRowContinue);
+            $table->addCell(null, $cellRowContinue);
+            $table->addCell(2000)->addText($value['pharmacies']['name'] . ', ' . $value['pharmacies']['address'],array('bold' => false,'align' => 'center'),$cellVCentered);
+            $table->addCell(2000)->addText($value[ 'balance' ],array('bold' => false,'align' => 'center'),$cellVCentered);
+
+            $idDrug = $value[ 'drugsDrugsCharacteristicsLink' ][ 'drugs_id' ];
+        }
+
+
+        $writer = new Word2007($word);
         $response = Yii::$app->getResponse();
         $headers = $response->getHeaders();
         $headers->set('Content-Type', 'application/vnd.ms-office');
-        $headers->set('Content-Disposition', 'attachment;filename="Наличие.docx"');
+        $headers->set('Content-Disposition', 'attachment;filename="Наличие лекарств.docx"');
         $headers->set('Cache-Control: max-age=0');
         ob_start();
         $writer->save("php://output");
