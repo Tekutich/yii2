@@ -7,7 +7,7 @@ Vagrant.configure(2) do |config|
     config.vm.provider :virtualbox do |virtualbox, override|
       virtualbox.memory = 4096
       virtualbox.cpus = 2
-      virtualbox.name = "php-yii2"
+      virtualbox.name = "php-yii"
       virtualbox.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
     end
 

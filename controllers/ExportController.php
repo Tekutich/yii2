@@ -190,7 +190,7 @@ class ExportController extends \yii\web\Controller
             'marginBottom' => $this->millimetersToTwip(20),
         );
         $section = $word->addSection($sectionStyle);
-        
+
         $idDrug = null;
         $idCharacteristicsOld = null;
         foreach ($model as $value) {
