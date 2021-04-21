@@ -23,7 +23,7 @@ class ExportController extends \yii\web\Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'orders','balance-of-goods-table','balance-of-goods-list'],
+                        'actions' => ['index', 'orders', 'balance-of-goods-table', 'balance-of-goods-list'],
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
@@ -85,16 +85,16 @@ class ExportController extends \yii\web\Controller
             $cellNameStart = 'B' . $row;
 
             $sheet->setCellValue($cellIdStart, '#' . $number);
-            $sheet->setCellValue($cellNameStart, $value['user']['surname'] . ' ' . $value['user']['name'] . ' ' . $value['user']['patronymic']);
-            foreach ($value['orderDetails'] as $product) {
+            $sheet->setCellValue($cellNameStart, $value[ 'user' ][ 'surname' ] . ' ' . $value[ 'user' ][ 'name' ] . ' ' . $value[ 'user' ][ 'patronymic' ]);
+            foreach ($value[ 'orderDetails' ] as $product) {
                 $cellIdEnd = 'A' . $row;
                 $cellNameEnd = 'B' . $row;
                 $cellProducts = 'C' . $row;
                 $cellCount = 'D' . $row;
-                $nameProduct = $product['drugs']['trade_name'];
-                $characteristicsProduct = $product['drugsCharacteristics']['form_of_issue'] . ' ' . $product['drugsCharacteristics']['dosage'];
+                $nameProduct = $product[ 'drugs' ][ 'trade_name' ];
+                $characteristicsProduct = $product[ 'drugsCharacteristics' ][ 'form_of_issue' ] . ' ' . $product[ 'drugsCharacteristics' ][ 'dosage' ];
                 $sheet->setCellValue($cellProducts, $nameProduct . ', ' . $characteristicsProduct);
-                $sheet->setCellValue($cellCount, $product['count']);
+                $sheet->setCellValue($cellCount, $product[ 'count' ]);
                 $sheet->getRowDimension($row)->setRowHeight(50);
                 $row++;
             }
@@ -122,7 +122,16 @@ class ExportController extends \yii\web\Controller
 
         $word = new \PhpOffice\PhpWord\PhpWord();
 
-        $section = $word->addSection();
+        $word->setDefaultFontName('Times New Roman');
+        $word->setDefaultFontSize(14);
+
+        $sectionStyle = array(
+            'marginTop' => $this->millimetersToTwip(20),
+            'marginLeft' => $this->millimetersToTwip(20),
+            'marginRight' => $this->millimetersToTwip(20),
+            'marginBottom' => $this->millimetersToTwip(20),
+        );
+        $section = $word->addSection($sectionStyle);
         $styleTable = array('borderSize' => 6, 'borderColor' => '999999', 'alignment' => 'center');
         $cellVCentered = array('align' => 'center',);
         $cellHCentered = array('valign' => 'center');
@@ -133,8 +142,8 @@ class ExportController extends \yii\web\Controller
         $table = $section->addTable($styleTable);
         $table->addRow();
         $table->addCell(1000)->addText('#', $textBold, $cellVCentered);
-        $table->addCell(2000)->addText('Наименование', $textBold, $cellVCentered);
-        $table->addCell(2000)->addText('Аптека', $textBold, $cellVCentered);
+        $table->addCell(3000)->addText('Наименование', $textBold, $cellVCentered);
+        $table->addCell(3000)->addText('Аптека', $textBold, $cellVCentered);
         $table->addCell(2000)->addText('Количество', $textBold, $cellVCentered);
 
         $idDrug = null;
@@ -142,17 +151,17 @@ class ExportController extends \yii\web\Controller
 
         foreach ($model as $value) {
             $table->addRow();
-            if ($value['drugsDrugsCharacteristicsLink']['drugs_id'] != $idDrug) {
+            if ($value[ 'drugsDrugsCharacteristicsLink' ][ 'drugs_id' ] != $idDrug) {
                 $table->addCell(1000, $cellRowSpan)->addText('#' . $number, null, $cellVCentered);
-                $table->addCell(2000, $cellRowSpan)->addText($value['drugsDrugsCharacteristicsLink']['drugs']['trade_name'] . ' ' . $value['drugsDrugsCharacteristicsLink']['drugsCharacteristics']['form_of_issue'] . ', ' . $value['drugsDrugsCharacteristicsLink']['drugsCharacteristics']['dosage'], null, $cellVCentered);
+                $table->addCell(3000, $cellRowSpan)->addText($value[ 'drugsDrugsCharacteristicsLink' ][ 'drugs' ][ 'trade_name' ] . ' ' . $value[ 'drugsDrugsCharacteristicsLink' ][ 'drugsCharacteristics' ][ 'form_of_issue' ] . ', ' . $value[ 'drugsDrugsCharacteristicsLink' ][ 'drugsCharacteristics' ][ 'dosage' ], null, $cellVCentered);
             } else {
                 $table->addCell(null, $cellRowContinue);
                 $table->addCell(null, $cellRowContinue);
             }
-            $table->addCell(2000, $cellHCentered)->addText($value['pharmacies']['name'] . ', ' . $value['pharmacies']['address'], null, $cellVCentered);
-            $table->addCell(2000, $cellHCentered)->addText($value['balance'], null, $cellVCentered);
+            $table->addCell(3000, $cellHCentered)->addText($value[ 'pharmacies' ][ 'name' ] . ', ' . $value[ 'pharmacies' ][ 'address' ], null, $cellVCentered);
+            $table->addCell(2000, $cellHCentered)->addText($value[ 'balance' ], null, $cellVCentered);
 
-            $idDrug = $value['drugsDrugsCharacteristicsLink']['drugs_id'];
+            $idDrug = $value[ 'drugsDrugsCharacteristicsLink' ][ 'drugs_id' ];
             $number++;
         }
 
@@ -171,25 +180,35 @@ class ExportController extends \yii\web\Controller
             ->all();
 
         $word = new PHPWord();
-        $section = $word->addSection();
+        $word->setDefaultFontName('Times New Roman');
+        $word->setDefaultFontSize(14);
+
+        $sectionStyle = array(
+            'marginTop' => $this->millimetersToTwip(20),
+            'marginLeft' => $this->millimetersToTwip(20),
+            'marginRight' => $this->millimetersToTwip(20),
+            'marginBottom' => $this->millimetersToTwip(20),
+        );
+        $section = $word->addSection($sectionStyle);
+        
         $idDrug = null;
         $idCharacteristicsOld = null;
         foreach ($model as $value) {
-            if ($value['drugsDrugsCharacteristicsLink']['drugs_id'] != $idDrug) {
+            if ($value[ 'drugsDrugsCharacteristicsLink' ][ 'drugs_id' ] != $idDrug) {
                 $section->addTextBreak(1);
                 $section->addText(
-                    $value['drugsDrugsCharacteristicsLink']['drugs']['trade_name'],
+                    $value[ 'drugsDrugsCharacteristicsLink' ][ 'drugs' ][ 'trade_name' ],
                     array('bold' => true)
                 );
                 $idCharacteristicsOld = null;
             }
-            if ($value['drugsDrugsCharacteristicsLink']['drugsCharacteristics']['id'] != $idCharacteristicsOld) {
-                $section->addListItem($value['drugsDrugsCharacteristicsLink']['drugsCharacteristics']['form_of_issue'] . ', ' . $value['drugsDrugsCharacteristicsLink']['drugsCharacteristics']['dosage'], 0);
+            if ($value[ 'drugsDrugsCharacteristicsLink' ][ 'drugsCharacteristics' ][ 'id' ] != $idCharacteristicsOld) {
+                $section->addListItem($value[ 'drugsDrugsCharacteristicsLink' ][ 'drugsCharacteristics' ][ 'form_of_issue' ] . ', ' . $value[ 'drugsDrugsCharacteristicsLink' ][ 'drugsCharacteristics' ][ 'dosage' ], 0);
             }
 
-            $idDrug = $value['drugsDrugsCharacteristicsLink']['drugs_id'];
-            $idCharacteristicsOld = $value['drugsDrugsCharacteristicsLink']['drugsCharacteristics']['id'];
-            $section->addListItem($value['pharmacies']['name'] . ', ' . $value['pharmacies']['address'] . ' - ' . $value['balance'] . ' шт.', 1);
+            $idDrug = $value[ 'drugsDrugsCharacteristicsLink' ][ 'drugs_id' ];
+            $idCharacteristicsOld = $value[ 'drugsDrugsCharacteristicsLink' ][ 'drugsCharacteristics' ][ 'id' ];
+            $section->addListItem($value[ 'pharmacies' ][ 'name' ] . ', ' . $value[ 'pharmacies' ][ 'address' ] . ' - ' . $value[ 'balance' ] . ' шт.', 1);
         }
 
         return $this->outputFile('Word', $word, 'Наличие лекарств.docx');
@@ -200,34 +219,47 @@ class ExportController extends \yii\web\Controller
      * @param $type *Тип либо Word либо Excel
      * @param $object *объект phpOffice
      * @param $filename *имя файла
-     * @return false|string
+     * @return false|string|\yii\console\Response|\yii\web\Response
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \yii\web\RangeNotSatisfiableHttpException
+     *
      */
     public function outputFile($type, $object, $filename)
     {
+        $mimeType = null;
         switch ($type) {
             case 'Excel':
                 $writer = new Xlsx($object);
+                $mimeType = ['mimeType' => 'application/vnd.ms-excel'];
                 break;
             case 'Word':
                 $writer = new Word2007($object);
+                $mimeType = ['mimeType' => 'application/vnd.ms-office'];
                 break;
             default:
                 $word = new PHPWord();
                 $section = $word->addSection();
                 $section->addText("Системная ошибка выбора типа приложения");
                 $writer = new Word2007($word);
+                $mimeType = ['mimeType' => 'application/vnd.ms-office'];
+                break;
         }
 
-        $response = Yii::$app->getResponse();
-        $headers = $response->getHeaders();
-        $headers->set('Content-Disposition', 'attachment;filename=' . $filename . '');
-        $headers->set('Cache-Control: max-age=0');
         ob_start();
         $writer->save("php://output");
         $content = ob_get_contents();
         ob_clean();
 
-        return $content;
+        return Yii::$app->response->sendContentAsFile($content, $filename, $mimeType);;
+    }
+
+    /**
+     * Перевод миллиметров в типографические твипы
+     * @param $millimeters
+     * @return false|float
+     */
+    private function millimetersToTwip($millimeters)
+    {
+        return floor($millimeters * 56.7);
     }
 }
