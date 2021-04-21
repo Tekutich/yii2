@@ -53,8 +53,9 @@ class ExportController extends \yii\web\Controller
 
     /**
      * Подготовка объекта Spreadsheet для вывода заказов
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \yii\web\RangeNotSatisfiableHttpException
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     public function actionOrders()
     {
@@ -112,6 +113,7 @@ class ExportController extends \yii\web\Controller
     /**
      * Подготовка объекта phpWord для вывода количества товара (таблицей)
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \yii\web\RangeNotSatisfiableHttpException
      */
     public function actionBalanceOfGoodsTable()
     {
@@ -171,6 +173,7 @@ class ExportController extends \yii\web\Controller
     /**
      * Подготовка объекта phpWord для вывода количества товара (списком)
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \yii\web\RangeNotSatisfiableHttpException
      */
     public function actionBalanceOfGoodsList()
     {
@@ -226,7 +229,7 @@ class ExportController extends \yii\web\Controller
      */
     public function outputFile($type, $object, $filename)
     {
-        $mimeType = null;
+        
         switch ($type) {
             case 'Excel':
                 $writer = new Xlsx($object);
@@ -250,7 +253,7 @@ class ExportController extends \yii\web\Controller
         $content = ob_get_contents();
         ob_clean();
 
-        return Yii::$app->response->sendContentAsFile($content, $filename, $mimeType);;
+        return Yii::$app->response->sendContentAsFile($content, $filename, $mimeType);
     }
 
     /**
