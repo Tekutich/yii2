@@ -156,6 +156,7 @@ class ExportController extends \yii\web\Controller
             if ($value[ 'drugsDrugsCharacteristicsLink' ][ 'drugs_id' ] != $idDrug) {
                 $table->addCell(1000, $cellRowSpan)->addText('#' . $number, null, $cellVCentered);
                 $table->addCell(3000, $cellRowSpan)->addText($value[ 'drugsDrugsCharacteristicsLink' ][ 'drugs' ][ 'trade_name' ] . ' ' . $value[ 'drugsDrugsCharacteristicsLink' ][ 'drugsCharacteristics' ][ 'form_of_issue' ] . ', ' . $value[ 'drugsDrugsCharacteristicsLink' ][ 'drugsCharacteristics' ][ 'dosage' ], null, $cellVCentered);
+                $number++;
             } else {
                 $table->addCell(null, $cellRowContinue);
                 $table->addCell(null, $cellRowContinue);
@@ -164,7 +165,7 @@ class ExportController extends \yii\web\Controller
             $table->addCell(2000, $cellHCentered)->addText($value[ 'balance' ], null, $cellVCentered);
 
             $idDrug = $value[ 'drugsDrugsCharacteristicsLink' ][ 'drugs_id' ];
-            $number++;
+
         }
 
         return $this->outputFile('Word', $word, 'Наличие лекарств.docx');
@@ -229,7 +230,7 @@ class ExportController extends \yii\web\Controller
      */
     public function outputFile($type, $object, $filename)
     {
-        
+
         switch ($type) {
             case 'Excel':
                 $writer = new Xlsx($object);
